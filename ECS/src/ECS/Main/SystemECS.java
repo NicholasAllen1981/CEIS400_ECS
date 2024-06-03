@@ -8,7 +8,7 @@ package ECS.Main;
  *
  * @author Nicholas Allen
  */
-public class System {
+public class SystemECS {
     // --- Variables ---
     private String systemID;
     public String locationID;

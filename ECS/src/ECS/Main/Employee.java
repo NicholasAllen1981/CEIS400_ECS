@@ -45,7 +45,7 @@ public class Employee {
             pstmt.setString(2, emp.empName);
             pstmt.setString(3, emp.empPass);
             pstmt.executeUpdate();
-            //System.out.println("Employee added successfully.");
+            System.out.println("Employee added successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,9 +58,9 @@ public class Employee {
             pstmt.setInt(1, empID);
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
-                //System.out.println("Employee terminated successfully.");
+                System.out.println("Employee terminated successfully.");
             } else {
-                //System.out.println("Employee not found.");
+                System.out.println("Employee not found.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class Employee {
     // Notify Employee (send email)
     public static void notifyEmp(String empName) {
         // Implement email notification logic here
-        //System.out.println("Email notification sent to " + empName);
+        System.out.println("Email notification sent to " + empName);
     }
 
     // Close the connection when the application is done
