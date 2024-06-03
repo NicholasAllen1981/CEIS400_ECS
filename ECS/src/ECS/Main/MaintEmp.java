@@ -18,9 +18,8 @@ public class MaintEmp extends Employee{
     public boolean warningGiven;
     private String lastLostDate;
     private String lastDamagedDate;
-       
-    
     // --- Functions ---
+    //Employee emp = new Employee(1, "Test", "Test");
     
     // Set maintanence employee skills
     public static void setSkillset(){
