@@ -10,18 +10,21 @@ public class Employee {
     // --- Variables ---
     public int empID;
     private String empPass;
-    public String empName;
+    public String empFirstName;
+    public String empLastname;
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/DB_NAME";
+    // Database variables
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/ceis400_group_project";
     private static final String DB_USER = "username";
     private static final String DB_PASSWORD = "password";
     private static Connection connection = null;
 
     // Contructor
-    Employee(int empID, String empName, String empPass) {
-        this.empID = empID;
-        this.empName = empName;
-        this.empPass = empPass;
+    Employee(int _empID, String _empFirstName, String _empLastName, String _empPass) {
+        this.empID = _empID;
+        this.empFirstName = _empFirstName;
+        this.empLastname = _empLastName;
+        this.empPass = _empPass;
     }
 
     // Constructor
@@ -39,11 +42,12 @@ public class Employee {
     // --- Functions ---
     // Add Employee (new hire)
     public static void addEmp(Employee emp) {
-        String sql = "INSERT INTO employees (empID, empName, empPass) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Employee (empID, FirstName, LastName, empPassword) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, emp.empID);
-            pstmt.setString(2, emp.empName);
-            pstmt.setString(3, emp.empPass);
+            pstmt.setString(2, emp.empFirstName);
+            pstmt.setString(3, emp.empLastname);
+            pstmt.setString(4, emp.empPass);
             pstmt.executeUpdate();
             System.out.println("Employee added successfully.");
         } catch (SQLException e) {
@@ -53,7 +57,7 @@ public class Employee {
 
     // Terminate Employee
     public static void terminateEmp(int empID) {
-        String sql = "DELETE FROM employees WHERE empID = ?";
+        String sql = "DELETE FROM Employee WHERE empID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, empID);
             int rowsAffected = pstmt.executeUpdate();
@@ -74,6 +78,7 @@ public class Employee {
     }
 
     // Close the connection when the application is done
+    // Call this function once you're done adding data to the database
     public static void closeConnection() {
         if (connection != null) {
             try {
@@ -85,7 +90,7 @@ public class Employee {
     }
 
     public static void main(String[] args) {
-        //Employee newEmp = new Employee(1, "Test", "password123");
+        //Employee newEmp = new Employee(1, "First","Last", "password123");
         //addEmp(newEmp);
         //notifyEmp(newEmp.empName);
         //terminateEmp(1);
