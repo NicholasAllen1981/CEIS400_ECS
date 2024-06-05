@@ -14,9 +14,9 @@ public class Employee {
     public String empLastname;
 
     // Database variables
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/ceis400_group_project";
-    private static final String DB_USER = "username";
-    private static final String DB_PASSWORD = "password";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
+    private static final String DB_USER = "groupc";
+    private static final String DB_PASSWORD = "oI209[^X`XHF";
     private static Connection connection = null;
 
     // Contructor
