@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class MaintEmp extends Employee{
     // --- Variables ---
     public int maintID;
-    public int[][] empSkills;;
+    public int[][] empSkills;
     public int equipLostCount;
     public boolean warningGiven;
     private String lastLostDate;
