@@ -9,10 +9,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- *
- * @author Nicholas Allen
- */
 
 
 public class MaintEmp extends Employee{
