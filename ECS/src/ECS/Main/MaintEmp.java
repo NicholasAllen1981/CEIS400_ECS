@@ -9,17 +9,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-<<<<<<< HEAD
-
-
-=======
 import java.sql.Timestamp;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.HashMap;
->>>>>>> d95f8f5 (Employee.java & MaintEmp.java)
 
 public class MaintEmp extends Employee{
     // --- Variables ---
