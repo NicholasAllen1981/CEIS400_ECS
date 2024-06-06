@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Nicholas Allen, Daniel F Diaz Santiago
+ */
+
 package ECS.Main;
 
 import java.sql.Connection;
@@ -31,6 +36,7 @@ public class Employee {
     Employee() {
     }
 
+    // Database (MySQL) connection
     static {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -53,6 +59,7 @@ public class Employee {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
     // Terminate Employee
@@ -69,6 +76,7 @@ public class Employee {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
     // Notify Employee (send email)
@@ -78,8 +86,7 @@ public class Employee {
     }
 
     // Close the connection when the application is done
-    // Call this function once you're done adding data to the database
-    public static void closeConnection() {
+    private static void closeConnection() {
         if (connection != null) {
             try {
                 connection.close();
@@ -87,6 +94,7 @@ public class Employee {
                 e.printStackTrace();
             }
         }
+        System.out.println("Connection closed");
     }
 
     public static void main(String[] args) {
@@ -94,6 +102,5 @@ public class Employee {
         //addEmp(newEmp);
         //notifyEmp(newEmp.empName);
         //terminateEmp(1);
-        //closeConnection();
     }
 }
