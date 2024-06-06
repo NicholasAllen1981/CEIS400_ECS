@@ -14,15 +14,15 @@ import java.sql.SQLException;
 public class MaintEmp extends Employee{
     // --- Variables ---
     public int maintID;
-    public int[][] empSkills;;
+    public int[][] empSkills;
     public int equipLostCount;
     public boolean warningGiven;
     private String lastLostDate;
     private String lastDamagedDate;
     
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/ceis400_group_project";
-    private static final String DB_USER = "username";
-    private static final String DB_PASSWORD = "password";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
+    private static final String DB_USER = "groupc";
+    private static final String DB_PASSWORD = "oI209[^X`XHF";
     private static Connection connection = null;
     
     // Constructor
