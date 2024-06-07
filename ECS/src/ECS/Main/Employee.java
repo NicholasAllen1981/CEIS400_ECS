@@ -13,10 +13,11 @@ import java.sql.SQLException;
 public class Employee {
 
     // --- Variables ---
-    public int empID;
+    public static int empID;
     private String empPass;
-    public String empFirstName;
-    public String empLastname;
+    public static String empFirstName;
+    public static String empLastName;
+    public static String empEmail;
 
     // Database variables
     private static final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
@@ -28,7 +29,7 @@ public class Employee {
     Employee(int _empID, String _empFirstName, String _empLastName, String _empPass) {
         this.empID = _empID;
         this.empFirstName = _empFirstName;
-        this.empLastname = _empLastName;
+        this.empLastName = _empLastName;
         this.empPass = _empPass;
     }
 
@@ -52,14 +53,21 @@ public class Employee {
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, emp.empID);
             pstmt.setString(2, emp.empFirstName);
-            pstmt.setString(3, emp.empLastname);
+            pstmt.setString(3, emp.empLastName);
             pstmt.setString(4, emp.empPass);
             pstmt.executeUpdate();
             System.out.println("Employee added successfully.");
+            notifyEmp(true); // Email notification - successful addition
         } catch (SQLException e) {
-            e.printStackTrace();
+            if (e.getErrorCode() == 1062) { // MySQL error code for duplicate entry
+                // ** Add a warning dialog **
+                System.out.println("Employee ID already exists.");
+            } else {
+                e.printStackTrace();
+            }
+        } finally {
+            closeConnection();
         }
-        closeConnection();
     }
 
     // Terminate Employee
@@ -69,20 +77,26 @@ public class Employee {
             pstmt.setInt(1, empID);
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Employee terminated successfully.");
+                notifyEmp(false); // Email notification - successful termination
             } else {
-                System.out.println("Employee not found.");
+                // ** Add a warning dialog **
+                System.out.println("Employee ID " + empID + " not found.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
-        closeConnection();
     }
 
     // Notify Employee (send email)
-    public static void notifyEmp(String empName) {
+    // ** if action == false, send notification of termination **
+    // ** if action == true, send notification for added **
+    private static void notifyEmp(boolean action) {
         // Implement email notification logic here
-        System.out.println("Email notification sent to " + empName);
+        if(!action) {
+            System.out.println("Employee Terminated\nEmail notification sent to " + empFirstName + " " + empLastName + " (Email: " + empEmail + ")");
+        } System.out.println("Employee Added\nEmail notification sent to " + empFirstName + " " + empLastName + " (Email: " + empEmail + ")");
     }
 
     // Close the connection when the application is done
