@@ -46,48 +46,6 @@ public class MaintEmp extends Employee{
     }
     
     // --- Functions ---
-    
-    // Insert last lost date
-    // Figure out how to implement "warningGiven" and "equipLostCount"
-    public static void insertLostDate(int _maintID, String _lastLostDate) {
-        String sql = "INSERT INTO MaintEmp (maintID, lastLostDate) VALUES (?, ?)"
-                   + "ON DUPLICATE KEY UPDATE lastLostDate = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date lastLostDate = dateFormat.parse(_lastLostDate);
-
-            pstmt.setInt(1, _maintID);
-            pstmt.setTimestamp(2, new Timestamp(lastLostDate.getTime()));
-            pstmt.setTimestamp(3, new Timestamp(lastLostDate.getTime()));
-            
-            pstmt.executeUpdate();
-            System.out.println("Last lost dates inserted successfully.");
-        } catch (SQLException | ParseException e) {
-            e.printStackTrace();
-        }
-        closeConnection();
-    }
-    
-    // Insert last damaged date
-    // Figure out how to implement "warningGiven"
-    public static void insertDamagedDate(int _maintID, String _lastDamagedDate) {
-        String sql = "INSERT INTO MaintEmp (maintID, lastDamagedDate) VALUES (?, ?)"
-                   + "ON DUPLICATE KEY UPDATE lastDamagedDate = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date lastLostDate = dateFormat.parse(_lastDamagedDate);
-
-            pstmt.setInt(1, _maintID);
-            pstmt.setTimestamp(2, new Timestamp(lastLostDate.getTime()));
-            pstmt.setTimestamp(3, new Timestamp(lastLostDate.getTime()));
-            
-            pstmt.executeUpdate();
-            System.out.println("Last lost dates inserted successfully.");
-        } catch (SQLException | ParseException e) {
-            e.printStackTrace();
-        }
-        closeConnection();
-    }
 
     // Set maintanence employee skills
     public static void setSkillset() {
