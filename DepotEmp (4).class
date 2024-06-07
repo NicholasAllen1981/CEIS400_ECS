@@ -1,0 +1,41 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ECS.Main;
+
+/**
+ *
+ * @author Nicholas Allen, Freeman King III
+ */
+
+class DepotEmp extends Employee{
+  protected int overrideRequests;
+  
+  public DepotEmp(int empID, String empPass, String empFirstName, String empLastName, int override) {
+    super(empID, empPass, empFirstName, empLastName );
+    overrideRequests = override;
+  }
+	
+  private void requestTransfer() {
+    //System.out.print( itemName,"Item has been transfer");
+  }
+  
+  private  void requestPurchase() {
+    //System.out.print( itemName,"Item has been Purchase");
+  }
+  
+  public void reportLost() {
+   // System.out.print( itemID, itemName,"Has been lost");
+  }
+  
+  public void reportDamaged() {
+    //System.out.print( itemID, itemName,"Has been lost");
+  }
+  
+  public void reportFound() {
+   // System.out.print( itemID, itemName,"Has been Found ");
+  }
+  
+}
+
