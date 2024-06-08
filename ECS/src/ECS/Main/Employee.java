@@ -18,6 +18,12 @@ public class Employee {
     public static String empFirstName;
     public static String empLastName;
     public static String empEmail;
+    public static String empAddress;
+    public static String empCity;
+    public static String empState;
+    public static String empZip;
+    public static String empPhone;
+    public static String empSkills;
 
     // Database variables
     private static final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
@@ -26,11 +32,18 @@ public class Employee {
     private static Connection connection = null;
 
     // Contructor
-    Employee(int _empID, String _empFirstName, String _empLastName, String _empPass) {
+    Employee(int _empID, String _empFirstName, String _empLastName, String _empPass, String _empAddress, String _empCity, String _empState, String _empZip, String _empPhone, String _empEmail, String _empSkills) {
         this.empID = _empID;
         this.empFirstName = _empFirstName;
         this.empLastName = _empLastName;
         this.empPass = _empPass;
+        this.empAddress = _empAddress;
+        this.empCity = _empCity;
+        this.empState = _empState;
+        this.empZip = _empZip;
+        this.empPhone = _empPhone;
+        this.empEmail = _empEmail;
+        this.empSkills = _empSkills;
     }
 
     // Constructor
@@ -49,12 +62,19 @@ public class Employee {
     // --- Functions ---
     // Add Employee (new hire)
     public static void addEmp(Employee emp) {
-        String sql = "INSERT INTO Employee (empID, FirstName, LastName, empPassword) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Employee (empID, FirstName, LastName, empPassword, empAddress, empCity, empState, empZip, empPhone, empEmail, empSkills) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, emp.empID);
             pstmt.setString(2, emp.empFirstName);
             pstmt.setString(3, emp.empLastName);
             pstmt.setString(4, emp.empPass);
+            pstmt.setString(5, emp.empAddress);
+            pstmt.setString(6, emp.empCity);
+            pstmt.setString(7, emp.empState);
+            pstmt.setString(8, emp.empZip);
+            pstmt.setString(9, emp.empPhone);
+            pstmt.setString(10, emp.empEmail);
+            pstmt.setString(11, emp.empSkills);
             pstmt.executeUpdate();
             System.out.println("Employee added successfully.");
             notifyEmp(true); // Email notification - successful addition
@@ -112,7 +132,7 @@ public class Employee {
     }
 
     public static void main(String[] args) {
-        //Employee newEmp = new Employee(1, "First","Last", "password123");
+        //Employee newEmp = new Employee(1, "First","Last", "password123", "1234 Fake St", "El Paso", "TX", "79926", "555-123-4567", "emp@email.com", "Skill1");
         //addEmp(newEmp);
         //notifyEmp(newEmp.empName);
         //terminateEmp(1);

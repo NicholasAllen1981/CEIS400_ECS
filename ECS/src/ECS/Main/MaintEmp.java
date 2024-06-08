@@ -19,12 +19,11 @@ import java.util.HashMap;
 public class MaintEmp extends Employee{
     // --- Variables ---
     public int maintID;
-    public Map<String, Integer> empSkills = new HashMap<>();    
-    public int currentItem;
-    public int equipLostCount;      // Waiting on GUI to use this
-    static public boolean warningGiven;    // Waiting on GUI to use this
-    private String lastLostDate;    // Waiting on GUI to use this
-    private String lastDamagedDate; // Waiting on GUI to use this
+    public Map<String, Integer> empSkills = new HashMap<>();
+    public int equipLostCount;          // Get status on items from DB
+    static public boolean warningGiven; // Will most likely be changed to a function
+    private String lastLostDate;        // Get status on items from DB
+    private String lastDamagedDate;     // Get status on items from DB
     
     private static final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
     private static final String DB_USER = "groupc";
@@ -53,6 +52,8 @@ public class MaintEmp extends Employee{
     }
     
     // Set checked out items
+    // Get all checked out items?
+    // use lastLostDate & lastDamagedDate if the item is lost to send a warning?
     public static void setOutItems(){
         
     }
