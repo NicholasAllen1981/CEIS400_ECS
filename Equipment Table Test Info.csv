@@ -1,0 +1,21 @@
+itemID,depotID,itemName,itemQuantity,itemAvailability,numOut,itemPrice,isConsumable,SkillRequired,DamageType,EquipNotes
+505,101,Hammer,15,1,2,6.25,0,None,Light Wear,None
+984,101,Adjustable Wrench,20,1,13,16,0,None,Light Wear,None
+787,102,Needlenose Pliers,20,1,12,8.21,0,None,Medium Wear,None
+508,101,#2 Phillips Screwdriver,20,1,18,2.35,0,None,Medium Abuse,None
+311,102,Slotted Screwdriver,20,1,17,2.45,0,None,Heavy Abuse,None
+259,102,12in Level,5,1,1,8.51,0,Woodworking,Light Wear,None
+629,102,Vise Grip Clamp,50,1,4,10.78,0,None,Heavy Wear,None
+839,102,Socket Set,5,0,5,50.37,0,None,Unusable,None
+110,102,Tape Measure,20,1,0,14.25,0,None,Light Abuse,None
+230,102,Utility Knife,20,1,2,10.67,0,None,Medium Abuse,None
+942,101,6in Diagonal Cutters,20,1,5,5.64,0,Electrical,Medium Abuse,None
+487,101,Files Set,5,1,2,35,0,Woodworking,Heavy Abuse,None
+732,102,Wooden Scrapers,50,1,27,8.21,1,Woodworking,Medium Abuse,None
+711,101,Allen Wrench Set,5,1,3,43.21,0,None,Heavy Abuse,None
+296,102,8in Flashlight,10,0,10,4.25,0,None,Light Wear,None
+299,102,Hand Saw,3,1,0,6.54,0,Woodworking,Heavy Wear,None
+559,101,Steel Rivets,265,1,142,1.35,1,Sheetmetal,Unusable,None
+398,101,Dial Caliper,10,1,3,21.35,0,Sheetmetal,Light Abuse,Out for Calibration
+757,101,Shop-Vac,2,1,1,98.22,0,None,Medium Abuse,None
+337,102,Wood Screws,236,1,91,0.35,1,Woodworking,Medium Abuse,None
