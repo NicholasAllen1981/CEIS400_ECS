@@ -31,8 +31,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `ceis400_group_project`.`MaintEmp` (
   `maintID` INT NOT NULL,
   `empSkills` VARCHAR(45) NULL,
-  `equipLostCount` INT ZEROFILL NULL,
-  `equipDamagedCount` INT ZEROFILL NULL,
+  `equipLostCount` INT NULL,
+  `equipDamagedCount` INT NULL,
   `warningGiven` TINYINT NULL COMMENT '0 = no warning given\n1 = warning given',
   `lastLostDate` DATE NULL,
   `lastDamagedDate` DATE NULL,
@@ -41,7 +41,7 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ceis400_group_project`.`DepotManager` (
   `mgmtID` INT NOT NULL,
-  `authCount` INT ZEROFILL NULL,
+  `authCount` INT NULL,
   PRIMARY KEY (`mgmtID`))
 ENGINE = InnoDB;
 
@@ -63,8 +63,11 @@ CREATE TABLE IF NOT EXISTS `ceis400_group_project`.`Employee` (
   `empPassword` VARCHAR(30) NOT NULL,
   `FirstName` VARCHAR(30) NOT NULL,
   `LastName` VARCHAR(30) NOT NULL,
-  `empAddress` VARCHAR(45) NULL,
-  `empPhone` INT(11) NULL,
+  `empAddress` VARCHAR(45) NOT NULL,
+  `empCity` VARCHAR(45) NOT NULL,
+  `empState` TEXT(2) NOT NULL,
+  `empZip` VARCHAR(10) NOT NULL,
+  `empPhone` INT(10) NULL,
   `empEmail` VARCHAR(45) NULL,
   `empSkills` VARCHAR(45) NOT NULL,
   `TerminationStatus` VARCHAR(45) NOT NULL,
