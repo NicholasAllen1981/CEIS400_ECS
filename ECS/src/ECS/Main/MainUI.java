@@ -63,6 +63,10 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JRadioButton jRadioButton4 = new javax.swing.JRadioButton();
         javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
         javax.swing.JTable jTable2 = new javax.swing.JTable();
+        javax.swing.JRadioButton jRadioButton5 = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton jRadioButton6 = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton jRadioButton7 = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton jRadioButton8 = new javax.swing.JRadioButton();
         javax.swing.JPanel jPanel4 = new javax.swing.JPanel();
         javax.swing.JMenuBar jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu jMenu1 = new javax.swing.JMenu();
@@ -116,6 +120,11 @@ public class MainUI extends javax.swing.JFrame {
         btnReportLost.setText("Report Lost Item");
 
         btnReportFound.setText("Report Item Found");
+        btnReportFound.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportFoundActionPerformed(evt);
+            }
+        });
 
         btnReportDamaged.setText("Report Damaged Item");
         btnReportDamaged.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +168,6 @@ public class MainUI extends javax.swing.JFrame {
         jPanel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
 
         btnModifyEmp_MGMT.setText("Modify Employee");
-        btnModifyEmp_MGMT.setEnabled(false);
         btnModifyEmp_MGMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifyEmp_MGMTActionPerformed(evt);
@@ -167,7 +175,6 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         btnAddEmp_MGMT.setText("Add Employee");
-        btnAddEmp_MGMT.setEnabled(false);
         btnAddEmp_MGMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddEmp_MGMTActionPerformed(evt);
@@ -175,10 +182,8 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         btnOverrides_MGMT.setText("Overrides");
-        btnOverrides_MGMT.setEnabled(false);
 
         btnAuthorization_MGMT.setText("Authorization");
-        btnAuthorization_MGMT.setEnabled(false);
 
         btnVerifyMGMT.setText("Verify MGMT");
         btnVerifyMGMT.addActionListener(new java.awt.event.ActionListener() {
@@ -313,7 +318,7 @@ public class MainUI extends javax.swing.JFrame {
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
-        jLabel1.setText("Search Text:");
+        jLabel1.setText("Search Local:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -322,17 +327,16 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         btnGrpSearch.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Employee ID");
 
         btnGrpSearch.add(jRadioButton2);
         jRadioButton2.setText("Employee Name");
 
         btnGrpSearch.add(jRadioButton3);
-        jRadioButton3.setText("Item ID");
+        jRadioButton3.setText("Transaction ID");
 
         btnGrpSearch.add(jRadioButton4);
-        jRadioButton4.setText("Item Name");
+        jRadioButton4.setText("Equipment ID");
 
         jTable2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -349,6 +353,19 @@ public class MainUI extends javax.swing.JFrame {
         jTable2.setShowHorizontalLines(true);
         jScrollPane2.setViewportView(jTable2);
 
+        btnGrpSearch.add(jRadioButton5);
+        jRadioButton5.setText("Due-In Date");
+
+        btnGrpSearch.add(jRadioButton6);
+        jRadioButton6.setText("Check-Out Date");
+
+        btnGrpSearch.add(jRadioButton7);
+        jRadioButton7.setText("Employee Name");
+
+        btnGrpSearch.add(jRadioButton8);
+        jRadioButton8.setSelected(true);
+        jRadioButton8.setText("Equipment Name");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -356,19 +373,27 @@ public class MainUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1298, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 809, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButton2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton4)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton5)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -381,7 +406,12 @@ public class MainUI extends javax.swing.JFrame {
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
+                    .addComponent(jRadioButton4)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButton8)
+                        .addComponent(jRadioButton7)
+                        .addComponent(jRadioButton6)
+                        .addComponent(jRadioButton5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                 .addContainerGap())
@@ -487,15 +517,18 @@ public class MainUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCheckInActionPerformed
 
     private void btnReportDamagedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportDamagedActionPerformed
-        // TODO add your handling code here:
+        ReportDamagedUI newFrame = new ReportDamagedUI();
+        newFrame.setVisible(true); 
     }//GEN-LAST:event_btnReportDamagedActionPerformed
 
     private void btnModifyEmp_MGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyEmp_MGMTActionPerformed
-        // TODO add your handling code here:
+        ModifyEmployeeUI newFrame = new ModifyEmployeeUI();
+        newFrame.setVisible(true); 
     }//GEN-LAST:event_btnModifyEmp_MGMTActionPerformed
 
     private void btnAddEmp_MGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmp_MGMTActionPerformed
-        // TODO add your handling code here:
+        AddEmployeeUI newFrame = new AddEmployeeUI();
+        newFrame.setVisible(true); 
     }//GEN-LAST:event_btnAddEmp_MGMTActionPerformed
 
     private void btnVerifyMGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyMGMTActionPerformed
@@ -508,6 +541,12 @@ public class MainUI extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void btnReportFoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportFoundActionPerformed
+        ReportFoundUI newFrame = new ReportFoundUI();
+        newFrame.setVisible(true);    
+        
+    }//GEN-LAST:event_btnReportFoundActionPerformed
 
     /**
      * @param args the command line arguments
