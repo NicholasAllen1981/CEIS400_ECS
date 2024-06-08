@@ -4,7 +4,7 @@ DROP TEMPORARY TABLE IF EXISTS tempTable;
 -- single/double quotes for values, strings, etc --
 -- backticks for column names --
 CREATE TEMPORARY TABLE tempTable
-(`itemID` int, `depotID` int, `itemName` VARCHAR(30), `itemQuantity` int, `itemAvailability` tinyint, `numOut` int, `itemPrice` int, `isConsumable` tinyint, `SkillRequired` varchar(45),
+(`itemID` int, `depotID` int, `itemName` VARCHAR(30), `itemQuantity` int, `itemAvailability` tinyint, `numOut` int, `itemPrice` int, `isConsumable` tinyint, `SkillRequired` varchar(45), `DamageType` varchar(45), `EquipNotes` varchar(45),
 PRIMARY KEY (`itemID`));
 
 -- loads update data from the .csv file in the specific directory, into the temporary table --
@@ -26,8 +26,10 @@ tempTable.`itemAvailability` = Equipment.`itemAvailability`,
 tempTable.`numOut` = Equipment.`numOut`,
 tempTable.`itemPrice` = Equipment.`itemPrice`,
 tempTable.`isConsumable` = Equipment.`isConsumable`,
-tempTable.`SkillRequired` = Equipment.`SkillRequired`;
+tempTable.`SkillRequired` = Equipment.`SkillRequired`,
+tempTable.`DamageType` = Equipment.`DamageType`,
+tempTable.`EquipNotes` = Equipment.`EquipNotes`;
 
 -- deletes the temporary table --
-DROP TEMPORARY TABLE tempTable;
--- select * from tempTable;
+-- DROP TEMPORARY TABLE tempTable;
+select * from tempTable;

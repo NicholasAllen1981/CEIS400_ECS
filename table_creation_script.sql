@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS `ceis400_group_project`.`Equipment` (
   `itemPrice` INT NULL,
   `isConsumable` TINYINT NOT NULL COMMENT '0 = false\n1 = true',
   `SkillRequired` VARCHAR(45) NOT NULL COMMENT 'Sheetmetal, Electrical, Woodworking, or None',
+  `DamageType` VARCHAR(45) NULL,
+  `EquipNotes` VARCHAR(45) NULL,
   PRIMARY KEY (`itemID`))
 ENGINE = InnoDB;
 
