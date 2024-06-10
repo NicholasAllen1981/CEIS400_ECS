@@ -155,38 +155,5 @@ public class DepotEmp extends Employee {
     }
 }
 
-/**
- *
- * @author Nicholas Allen
- */
-public class DepotEmp extends Employee{
-    // --- Variables ---
-    private int overrideRequest;
-    
-    // --- Functions ---
-    
-    // Request Equipment Transfer
-    private static void requestTransfer(){
-        
-    }
-    
-    // Request Equipment Purchase
-    private static void requestPurchase(){
-        
-    }
-    
-    // Report Lost
-    public static void reportLost(){
-        
-    }
-    
-    // Report Damaged
-    public static void reportDamaged(){
-        
-    }
-    
-    // Report Found
-    private static void reportFound(){
-        
-    }
+
 }
