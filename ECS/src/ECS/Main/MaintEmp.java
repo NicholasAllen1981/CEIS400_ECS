@@ -92,38 +92,42 @@ public class MaintEmp extends Employee {
     // Set checked out items
     // Get all checked out items?
     // use lastLostDate & lastDamagedDate if the item is lost to send a warning?
-    public static void setOutItems() {
+    public static void setOutItems(int maintID) {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
-            // Get all checked-out items and their status
-            String sql = "SELECT maintID, lastLostDate, lastDamagedDate FROM MaintEmp";
+            // Get the status of items for the specified maintenance employee (maintID)
+            String sql = "SELECT lastLostDate, lastDamagedDate FROM MaintEmp WHERE maintID = ?";
             preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, maintID);
             resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                MaintEmp maintEmp = new MaintEmp();
-                maintEmp.maintID = resultSet.getInt("maintID");
-                maintEmp.lastLostDate = resultSet.getString("lastLostDate");
-                maintEmp.lastDamagedDate = resultSet.getString("lastDamagedDate");
+            if (resultSet.next()) {
+                String lastLostDate = resultSet.getString("lastLostDate");
+                String lastDamagedDate = resultSet.getString("lastDamagedDate");
 
                 // Check if the item is lost or damaged
-                if (maintEmp.lastLostDate != null || maintEmp.lastDamagedDate != null) {
+                if (lastLostDate != null || lastDamagedDate != null) {
                     // Send a warning if not already given
                     if (!warningGiven) {
-                        System.out.println("Warning: Maintenance employee with ID " + maintEmp.maintID + " has lost or damaged items.");
-                        JOptionPane.showMessageDialog(null, "Warning: Maintenance employee with ID " + maintEmp.maintID
+                        System.out.println("Warning: Maintenance employee with ID " + maintID + " has lost or damaged items.");
+                        JOptionPane.showMessageDialog(null, "Warning: Maintenance employee with ID " + maintID
                                 + " has lost or damaged items.", "Warning", JOptionPane.WARNING_MESSAGE);
                         warningGiven = true;
 
+                        // Update warningGiven status in the database
                         String updateSql = "UPDATE MaintEmp SET warningGiven = 1 WHERE maintID = ?";
                         PreparedStatement updateStatement = connection.prepareStatement(updateSql);
-                        updateStatement.setInt(1, maintEmp.maintID);
+                        updateStatement.setInt(1, maintID);
                         updateStatement.executeUpdate();
                         updateStatement.close();
                     }
+                } else {
+                    System.out.println("Maintenance employee with ID " + maintID + " has no lost or damaged items.");
                 }
+            } else {
+                System.out.println("Maintenance employee ID not found: " + maintID);
             }
 
         } catch (SQLException e) {
@@ -258,5 +262,5 @@ public class MaintEmp extends Employee {
         }
         System.out.println("Connection closed");
     }
-    
+
 }
