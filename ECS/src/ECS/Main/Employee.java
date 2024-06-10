@@ -37,7 +37,9 @@ public class Employee {
     private static Connection connection = null;
 
     // Contructor
-    Employee(int _empID, String _empFirstName, String _empLastName, String _empPass, String _empAddress, String _empCity, String _empState, String _empZip, Long _empPhone, String _empEmail, String _empSkills, String _empStatus, int _empDepotID, int _maintID) {
+    Employee(int _empID, String _empFirstName, String _empLastName, String _empPass, String _empAddress,
+            String _empCity, String _empState, String _empZip, Long _empPhone, String _empEmail,
+            String _empSkills, String _empStatus, int _empDepotID, int _maintID) {
         this.empID = _empID;
         this.empFirstName = _empFirstName;
         this.empLastName = _empLastName;
@@ -95,7 +97,7 @@ public class Employee {
         }
         return false;
     }
-    
+
     // Add Employee (new hire)
     public static void addEmp(Employee emp) {
         JFrame frame = new JFrame();
@@ -114,7 +116,8 @@ public class Employee {
             return;
         }
 
-        String sql = "INSERT INTO Employee (empID, FirstName, LastName, empPassword, empAddress, empCity, empState, empZip, empPhone, empEmail, empSkills, TerminationStatus, DepotEmpID, maintID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Employee (empID, FirstName, LastName, empPassword, empAddress, empCity, empState, empZip, "
+                + "empPhone, empEmail, empSkills, TerminationStatus, DepotEmpID, maintID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, emp.empID);
             pstmt.setString(2, emp.empFirstName);
@@ -170,9 +173,11 @@ public class Employee {
     private static void notifyEmp(boolean action) {
         // Implement email notification logic here
         if (!action) {
-            System.out.println("Employee Terminated\nEmail notification sent to " + empFirstName + " " + empLastName + " (Email: " + empEmail + ")");
+            System.out.println("Employee Terminated\nEmail notification sent to "
+                    + empFirstName + " " + empLastName + " (Email: " + empEmail + ")");
         }
-        System.out.println("Employee Added\nEmail notification sent to " + empFirstName + " " + empLastName + " (Email: " + empEmail + ")");
+        System.out.println("Employee Added\nEmail notification sent to " + empFirstName
+                + " " + empLastName + " (Email: " + empEmail + ")");
     }
 
     // Close the connection when the application is done
@@ -188,7 +193,8 @@ public class Employee {
     }
 
     public static void main(String[] args) {
-        //Employee newEmp = new Employee(1, "First", "Last", "password123", "1234 Fake St", "El Paso", "TX", "79926", 1234567L, "emp@email.com", "Skill1", "Good", 12, 13);
+        //Employee newEmp = new Employee(1, "First", "Last", "password123", "1234 Fake St", 
+        //        "El Paso",  "TX", "79926", 1234567L, "emp@email.com", "Skill1", "Good", 12, 13);
         //addEmp(newEmp);
         //terminateEmp(1);
     }
