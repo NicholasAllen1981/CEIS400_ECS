@@ -28,6 +28,8 @@ public class DepotManager extends DepotEmp {
     private static boolean verifySkills(int employeeID, String toolName) {
         try {
             // Establish database connection
+            
+            // *** Make sure to close the connection after the function is done ***
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", DB_USER, DB_PASSWORD);
             
             // Prepare SQL query
@@ -81,7 +83,7 @@ public class DepotManager extends DepotEmp {
          private static void authPurchase(int employeeID, int toolID) {
         try {
             // Establish database connection
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", "username", "password");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", DB_USER, DB_PASSWORD);
             
             // Check if the tool is needed for the employee
             String checkNeedSQL = "SELECT * FROM Employee WHERE empID = ? AND empSkills = ?";
@@ -93,7 +95,9 @@ public class DepotManager extends DepotEmp {
             if (rs.next()) {
                 // Tool is needed for the employee, authorize purchase
                 // Assuming the purchase is authorized by adding an entry to a purchase table
-                String authorizePurchaseSQL = "INSERT INTO purchase_requests (empID, empSkills) VALUES (?, ?)";
+                
+                // *** change "purchase_requests", it doesn't exist ***
+                String authorizePurchaseSQL = "INSERT INTO purchase_requests (empID, empSkills) VALUES (?, ?)"; 
                 PreparedStatement authorizeStmt = conn.prepareStatement(authorizePurchaseSQL);
                 authorizeStmt.setInt(1, employeeID);
                 authorizeStmt.setInt(2, toolID);
@@ -120,6 +124,9 @@ public class DepotManager extends DepotEmp {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", DB_USER, DB_PASSWORD);
             
             // Check if the tool is available at the 'from' facility
+            
+            
+            // *** "facility_inventory" "tool_id" "facility_name" don't exist. ***
             String checkAvailabilitySQL = "SELECT * FROM facility_inventory WHERE tool_id = ? AND facility_name = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkAvailabilitySQL);
             checkStmt.setInt(1, toolID);
@@ -129,6 +136,9 @@ public class DepotManager extends DepotEmp {
             if (rs.next()) {
                 // Tool is available at the 'from' facility, authorize transfer
                 // Assuming the transfer is authorized by updating the inventory record
+                
+                
+                // *** "facility_inventory" "facility_name" and "tool_id" don't exist. ***
                 String updateInventorySQL = "UPDATE facility_inventory SET facility_name = ? WHERE tool_id = ?";
                 PreparedStatement updateStmt = conn.prepareStatement(updateInventorySQL);
                 updateStmt.setString(1, toFacility);
@@ -162,10 +172,12 @@ public class DepotManager extends DepotEmp {
             
             // Loop through the retrieved equipment
             while (rs.next()) {
-                int equipmentID = rs.getInt("equipment_id");
+                int equipmentID = rs.getInt("itemID");
                 
                 // Update the status of the equipment to indicate it's returned
-                String updateStatusSQL = "UPDATE equipment SET status = 'Returned' WHERE equipment_id = ?";
+                
+                // *** itemID is an INT ***
+                String updateStatusSQL = "UPDATE Equipment SET status = 'Returned' WHERE itemID = ?";
                 PreparedStatement updateStmt = conn.prepareStatement(updateStatusSQL);
                 updateStmt.setInt(1, equipmentID);
                 int rowsUpdated = updateStmt.executeUpdate();
