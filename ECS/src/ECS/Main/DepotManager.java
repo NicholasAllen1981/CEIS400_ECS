@@ -4,6 +4,18 @@
  */
 package ECS.Main;
 
+/*
+This is the part of the Database you're working with, adjust your work with this:
+
+CREATE TABLE IF NOT EXISTS `ceis400_group_project`.`DepotManager` (
+  `mgmtID` INT NOT NULL,
+  `authCount` INT NULL,
+  PRIMARY KEY (`mgmtID`))
+ENGINE = InnoDB;
+
+*/
+
+
 /**
  *
  * @author Mircale Holman
@@ -14,7 +26,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DepotManager extends DepotEmp {
+public class DepotManager extends DepotEmp { // *** DepotEmp(int empID, String name, int overrideRequest) ***
     
     // --- Variables ---
     private int mgmtID;

@@ -4,7 +4,6 @@
  */
 //author Freeman King
 package ECS.Main;
-package ECS.Main;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,6 +14,25 @@ import java.sql.ResultSet;
 /**
  * Author: Freeman King
  */
+
+/*
+This is the part of the Database you're working with, adjust your work with this:
+
+CREATE TABLE IF NOT EXISTS `ceis400_group_project`.`DepotEmp` (
+  `DepotEmpID` INT NOT NULL,
+  `overrideRequest` INT UNSIGNED NULL,
+  `mgmtID` INT NULL,
+  PRIMARY KEY (`DepotEmpID`),
+  INDEX `mgmtID_idx` (`mgmtID` ASC) VISIBLE,
+  CONSTRAINT `mgmtID`
+    FOREIGN KEY (`mgmtID`)
+    REFERENCES `group_project`.`DepotManager` (`mgmtID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+*/
+
+
 public class DepotEmp extends Employee {
     // --- Variables ---
     private int overrideRequest;
@@ -27,7 +45,7 @@ public class DepotEmp extends Employee {
 
     // Constructor
     public DepotEmp(int empID, String name, int overrideRequest) {
-        super(empID, name); // Assuming Employee class has these fields
+        super(empID, name); // *** Employee class doesn't have this constructor, if you need one with just these two variables, let me know ***
         this.overrideRequest = overrideRequest;
         
         // Initialize database connection when the first instance is created
