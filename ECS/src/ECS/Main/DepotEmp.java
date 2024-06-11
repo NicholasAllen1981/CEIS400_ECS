@@ -36,7 +36,8 @@ ENGINE = InnoDB;
 public class DepotEmp extends Employee {
     // --- Variables ---
     private int overrideRequest;
-
+    private int empID;
+    private String empName;
     // --- Database Connection Variables ---
     private static final String DB_URL = "jdbc:mysql://localhost:3306/ceis400_group_project";
     private static final String DB_USER = "groupc";
@@ -44,8 +45,11 @@ public class DepotEmp extends Employee {
     private static Connection connection = null;
 
     // Constructor
-    public DepotEmp(int empID, String name, int overrideRequest) {
-        super(empID, name); // *** Employee class doesn't have this constructor, if you need one with just these two variables, let me know ***
+    public DepotEmp(int empID, String empName, int overrideRequest) {
+        this.empID = empID;
+        this.empName = empName;
+                
+        //super(empID, empName); // *** Employee class doesn't have this constructor, if you need one with just these two variables, let me know ***
         this.overrideRequest = overrideRequest;
         
         // Initialize database connection when the first instance is created
@@ -65,8 +69,12 @@ public class DepotEmp extends Employee {
     public void addDepotEmpToDB() {
         String sql = "INSERT INTO depot_employees (empID, name, overrideRequest) VALUES (?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            /** BELOW NEEDS FIXED**
+            
             pstmt.setInt(1, this.getEmpID()); // Assuming Employee class has getEmpID()
             pstmt.setString(2, this.getName()); // Assuming Employee class has getName()
+            
+            ABOVE NEEDS FIXED  **/
             pstmt.setInt(3, this.overrideRequest);
             pstmt.executeUpdate();
             System.out.println("Depot employee added to database successfully.");
@@ -171,7 +179,4 @@ public class DepotEmp extends Employee {
         }
         return null;
     }
-}
-
-
 }

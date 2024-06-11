@@ -33,7 +33,7 @@ public class VerifyManagementUI extends javax.swing.JFrame {
         javax.swing.JButton jButton1 = new javax.swing.JButton();
         javax.swing.JButton jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Verify Management");
         setAlwaysOnTop(true);
         setResizable(false);
@@ -105,7 +105,8 @@ public class VerifyManagementUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

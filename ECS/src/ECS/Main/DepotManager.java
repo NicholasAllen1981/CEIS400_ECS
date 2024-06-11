@@ -204,5 +204,9 @@ public class DepotManager extends DepotEmp { // *** DepotEmp(int empID, String n
             e.printStackTrace();
         }
     }
+
+    public DepotManager(int empID, String empName, int overrideRequest) {
+        super(empID, empName, overrideRequest);
+    }
 }
 
