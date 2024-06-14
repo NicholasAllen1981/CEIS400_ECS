@@ -15,6 +15,7 @@ public class ReportFoundUI extends javax.swing.JFrame {
      */
     public ReportFoundUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

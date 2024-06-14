@@ -17,6 +17,7 @@ public class MainUI extends javax.swing.JFrame {
      */
     public MainUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

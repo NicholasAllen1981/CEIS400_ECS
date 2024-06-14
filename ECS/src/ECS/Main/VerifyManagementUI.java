@@ -15,6 +15,7 @@ public class VerifyManagementUI extends javax.swing.JFrame {
      */
     public VerifyManagementUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

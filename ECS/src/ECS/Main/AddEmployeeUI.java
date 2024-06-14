@@ -4,6 +4,8 @@
  */
 package ECS.Main;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author nicho
@@ -15,6 +17,8 @@ public class AddEmployeeUI extends javax.swing.JFrame {
      */
     public AddEmployeeUI() {
         initComponents();
+        notes_box.setLineWrap(true);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -33,25 +37,25 @@ public class AddEmployeeUI extends javax.swing.JFrame {
         javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-        javax.swing.JList<String> jList1 = new javax.swing.JList<>();
+        skillset_list = new javax.swing.JList<>();
         javax.swing.JLabel jLabel11 = new javax.swing.JLabel();
         javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-        javax.swing.JTextArea jTextArea1 = new javax.swing.JTextArea();
-        javax.swing.JTextField jTextField9 = new javax.swing.JTextField();
+        notes_box = new javax.swing.JTextArea();
+        address_box = new javax.swing.JTextField();
         javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
-        javax.swing.JTextField jTextField6 = new javax.swing.JTextField();
-        javax.swing.JTextField jTextField8 = new javax.swing.JTextField();
+        city_box = new javax.swing.JTextField();
+        zip_box = new javax.swing.JTextField();
         javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
-        javax.swing.JComboBox<String> jComboBox1 = new javax.swing.JComboBox<>();
+        state_dropdown = new javax.swing.JComboBox<>();
         javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
-        javax.swing.JTextField jTextField7 = new javax.swing.JTextField();
-        javax.swing.JTextField jTextField4 = new javax.swing.JTextField();
-        javax.swing.JTextField jTextField3 = new javax.swing.JTextField();
-        javax.swing.JTextField jTextField1 = new javax.swing.JTextField();
+        first_name_box = new javax.swing.JTextField();
+        last_name_box = new javax.swing.JTextField();
+        address_box2 = new javax.swing.JTextField();
+        email_box = new javax.swing.JTextField();
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
-        javax.swing.JTextField jTextField2 = new javax.swing.JTextField();
-        javax.swing.JButton jButton2 = new javax.swing.JButton();
-        javax.swing.JButton jButton1 = new javax.swing.JButton();
+        phone_box = new javax.swing.JTextField();
+        javax.swing.JButton okay_btn = new javax.swing.JButton();
+        javax.swing.JButton cancel_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Employee");
@@ -69,35 +73,78 @@ public class AddEmployeeUI extends javax.swing.JFrame {
 
         jLabel8.setText("Skillset:");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        skillset_list.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        skillset_list.setNextFocusableComponent(notes_box);
+        jScrollPane1.setViewportView(skillset_list);
 
         jLabel11.setText("Notes:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        notes_box.setColumns(20);
+        notes_box.setRows(5);
+        notes_box.setNextFocusableComponent(okay_btn);
+        jScrollPane2.setViewportView(notes_box);
 
-        jLabel10.setText("eMail:");
+        address_box.setNextFocusableComponent(address_box2);
+
+        jLabel10.setText("Email:");
+
+        city_box.setNextFocusableComponent(state_dropdown);
+
+        zip_box.setNextFocusableComponent(phone_box);
+        zip_box.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                zip_boxKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                zip_boxKeyTyped(evt);
+            }
+        });
 
         jLabel9.setText("State:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" }));
+        state_dropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" }));
+        state_dropdown.setNextFocusableComponent(zip_box);
 
         jLabel6.setText("Zip:");
 
+        first_name_box.setNextFocusableComponent(last_name_box);
+
+        last_name_box.setNextFocusableComponent(address_box);
+
+        address_box2.setNextFocusableComponent(city_box);
+
+        email_box.setNextFocusableComponent(skillset_list);
+        email_box.setPreferredSize(new java.awt.Dimension(312, 27));
+
         jLabel1.setText("Last Name:");
 
-        jButton2.setText("Okay");
+        phone_box.setNextFocusableComponent(email_box);
+        phone_box.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                phone_boxKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phone_boxKeyTyped(evt);
+            }
+        });
 
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        okay_btn.setText("Okay");
+        okay_btn.setNextFocusableComponent(cancel_btn);
+        okay_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                okay_btnActionPerformed(evt);
+            }
+        });
+
+        cancel_btn.setText("Cancel");
+        cancel_btn.setNextFocusableComponent(first_name_box);
+        cancel_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancel_btnActionPerformed(evt);
             }
         });
 
@@ -115,45 +162,45 @@ public class AddEmployeeUI extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(city_box, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
+                        .addComponent(state_dropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(zip_box, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(address_box2, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(first_name_box, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(last_name_box, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(phone_box, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addGap(8, 8, 8)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(email_box, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(okay_btn)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField1))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))
-                        .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(cancel_btn)))
+                    .addComponent(address_box))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -162,31 +209,31 @@ public class AddEmployeeUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(first_name_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(last_name_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(address_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(address_box2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(city_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(zip_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(state_dropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(phone_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(email_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel8)
@@ -195,18 +242,77 @@ public class AddEmployeeUI extends javax.swing.JFrame {
                     .addComponent(jScrollPane2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(okay_btn)
+                    .addComponent(cancel_btn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void cancel_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_btnActionPerformed
         setVisible(false);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_cancel_btnActionPerformed
+
+    private void okay_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okay_btnActionPerformed
+        Employee newEmp = new Employee(first_name_box.getText(), last_name_box.getText(), address_box.getText(),
+                city_box.getText(), state_dropdown.getItemAt(state_dropdown.getSelectedIndex()), zip_box.getText(),
+                Long.parseLong(phone_box.getText()), email_box.getText(), skillset_list.getSelectedValue(), "Good");
+        Employee.addEmp(newEmp);
+
+        /*
+        Employee(String _empFirstName, String _empLastName, String _empAddress, 
+            String _empCity, String _empState, String _empZip, Long _empPhone, 
+            String _empEmail, String _empSkills, String _empStatus)
+         */
+    }//GEN-LAST:event_okay_btnActionPerformed
+
+    private void zip_boxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zip_boxKeyTyped
+        // Allow only numbers
+        char keys = evt.getKeyChar();
+
+        if (!Character.isDigit(keys)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_zip_boxKeyTyped
+
+    private void phone_boxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone_boxKeyTyped
+        // Allow only numbers
+        char keys = evt.getKeyChar();
+
+        if (!Character.isDigit(keys)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_phone_boxKeyTyped
+
+    private void zip_boxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zip_boxKeyPressed
+        // Limit input to 5
+        if (zip_box.getText().length() >= 5) {
+            // Allow backspace and delete
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                zip_box.setEditable(true);
+            } else {
+                zip_box.setEditable(false);
+            }
+        } else {
+            zip_box.setEditable(true);
+        }
+    }//GEN-LAST:event_zip_boxKeyPressed
+
+    private void phone_boxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone_boxKeyPressed
+        // Limit input to 10
+        if (phone_box.getText().length() >= 10) {
+            // Allow backspace and delete
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                phone_box.setEditable(true);
+            } else {
+                phone_box.setEditable(false);
+            }
+        } else {
+            phone_box.setEditable(true);
+        }
+    }//GEN-LAST:event_phone_boxKeyPressed
 
     /**
      * @param args the command line arguments
@@ -244,5 +350,16 @@ public class AddEmployeeUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    javax.swing.JTextField address_box;
+    javax.swing.JTextField address_box2;
+    javax.swing.JTextField city_box;
+    javax.swing.JTextField email_box;
+    javax.swing.JTextField first_name_box;
+    javax.swing.JTextField last_name_box;
+    javax.swing.JTextArea notes_box;
+    javax.swing.JTextField phone_box;
+    javax.swing.JList<String> skillset_list;
+    javax.swing.JComboBox<String> state_dropdown;
+    javax.swing.JTextField zip_box;
     // End of variables declaration//GEN-END:variables
 }

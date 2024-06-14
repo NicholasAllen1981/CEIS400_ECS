@@ -16,6 +16,7 @@ public class CheckInUI extends javax.swing.JFrame {
      */
     public CheckInUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

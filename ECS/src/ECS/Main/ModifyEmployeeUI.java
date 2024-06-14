@@ -15,6 +15,7 @@ public class ModifyEmployeeUI extends javax.swing.JFrame {
      */
     public ModifyEmployeeUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

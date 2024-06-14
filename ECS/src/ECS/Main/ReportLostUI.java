@@ -15,6 +15,7 @@ public class ReportLostUI extends javax.swing.JFrame {
      */
     public ReportLostUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

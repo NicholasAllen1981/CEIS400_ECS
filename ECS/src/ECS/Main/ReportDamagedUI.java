@@ -15,6 +15,7 @@ public class ReportDamagedUI extends javax.swing.JFrame {
      */
     public ReportDamagedUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

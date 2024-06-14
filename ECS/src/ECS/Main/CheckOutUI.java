@@ -15,6 +15,7 @@ public class CheckOutUI extends javax.swing.JFrame {
      */
     public CheckOutUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
