@@ -6,14 +6,17 @@ package ECS.Main;
 
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author nicho
  */
 public class AddEmployeeUI extends javax.swing.JFrame {
+
     public static HashMap<String, String> states_map = new HashMap<>();
-    
+
     /**
      * Creates new form AddEmployeeUI
      */
@@ -22,8 +25,7 @@ public class AddEmployeeUI extends javax.swing.JFrame {
         populate_states_hashmap();
         notes_box.setLineWrap(true);
         setLocationRelativeTo(null);
-        
-        
+
     }
 
     /**
@@ -261,12 +263,14 @@ public class AddEmployeeUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cancel_btnActionPerformed
 
     private void okay_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okay_btnActionPerformed
-        String state = states_map.get(state_dropdown.getItemAt(state_dropdown.getSelectedIndex()));
-        
-        Employee newEmp = new Employee(first_name_box.getText(), last_name_box.getText(), address_box.getText(),
-                city_box.getText(), state, zip_box.getText(), Long.parseLong(phone_box.getText()), email_box.getText(), 
-                skillset_list.getSelectedValue(), "Good");
-        Employee.addEmp(newEmp);
+        String state = states_map.get(state_dropdown.getSelectedItem().toString());
+
+        if (validate_inputs()) {
+            Employee newEmp = new Employee(first_name_box.getText(), last_name_box.getText(), address_box.getText(),
+                    city_box.getText(), state, zip_box.getText(), Long.parseLong(phone_box.getText()), email_box.getText(),
+                    skillset_list.getSelectedValue(), "Good");
+            Employee.addEmp(newEmp);
+        }
 
         /*
         Employee(String _empFirstName, String _empLastName, String _empAddress, 
@@ -376,6 +380,83 @@ public class AddEmployeeUI extends javax.swing.JFrame {
         states_map.put("Wisconsin", "WI");
         states_map.put("Wyoming", "WY");
     }
+
+    private boolean validate_inputs() {
+        // Validate first name
+        if (first_name_box.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "First name is required", "Input Error", JOptionPane.ERROR_MESSAGE);
+            first_name_box.requestFocus();
+            return false;
+        }
+
+        // Validate last name
+        if (last_name_box.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Last name is required", "Input Error", JOptionPane.ERROR_MESSAGE);
+            last_name_box.requestFocus();
+            return false;
+        }
+
+        // Validate address
+        if (address_box.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Address is required", "Input Error", JOptionPane.ERROR_MESSAGE);
+            address_box.requestFocus();
+            return false;
+        }
+
+        // Validate city
+        if (city_box.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "City is required", "Input Error", JOptionPane.ERROR_MESSAGE);
+            city_box.requestFocus();
+            return false;
+        }
+
+        // Validate state
+        String state = state_dropdown.getSelectedItem().toString();
+        if (state.equals("Select")) {
+            JOptionPane.showMessageDialog(this, "State is required", "Input Error", JOptionPane.ERROR_MESSAGE);
+            state_dropdown.requestFocus();
+            return false;
+        }
+
+        // Validate ZIP code
+        if (zip_box.getText().trim().isEmpty() || zip_box.getText().length() != 5) {
+            JOptionPane.showMessageDialog(this, "Valid 5-digit ZIP code is required", "Input Error", JOptionPane.ERROR_MESSAGE);
+            zip_box.requestFocus();
+            return false;
+        }
+
+        // Validate phone number
+        String phone = phone_box.getText().trim();
+        if (phone.isEmpty() || !phone.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "Valid 10-digit phone number is required", "Input Error", JOptionPane.ERROR_MESSAGE);
+            phone_box.requestFocus();
+            return false;
+        }
+
+        // Validate email
+        String email = email_box.getText().trim();
+        if (email.isEmpty() || !is_valid_email(email)) {
+            JOptionPane.showMessageDialog(this, "Valid email is required", "Input Error", JOptionPane.ERROR_MESSAGE);
+            email_box.requestFocus();
+            return false;
+        }
+        
+        // Validate skillset
+        if (skillset_list.getSelectedValue() == null) {
+            JOptionPane.showMessageDialog(this, "A skillset selection is required", "Input Error", JOptionPane.ERROR_MESSAGE);
+            skillset_list.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean is_valid_email(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pat = Pattern.compile(emailRegex);
+        return pat.matcher(email).matches();
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
