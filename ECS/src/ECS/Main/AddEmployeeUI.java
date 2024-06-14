@@ -5,20 +5,25 @@
 package ECS.Main;
 
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 
 /**
  *
  * @author nicho
  */
 public class AddEmployeeUI extends javax.swing.JFrame {
-
+    public static HashMap<String, String> states_map = new HashMap<>();
+    
     /**
      * Creates new form AddEmployeeUI
      */
     public AddEmployeeUI() {
         initComponents();
+        populate_states_hashmap();
         notes_box.setLineWrap(true);
         setLocationRelativeTo(null);
+        
+        
     }
 
     /**
@@ -256,9 +261,11 @@ public class AddEmployeeUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cancel_btnActionPerformed
 
     private void okay_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okay_btnActionPerformed
+        String state = states_map.get(state_dropdown.getItemAt(state_dropdown.getSelectedIndex()));
+        
         Employee newEmp = new Employee(first_name_box.getText(), last_name_box.getText(), address_box.getText(),
-                city_box.getText(), state_dropdown.getItemAt(state_dropdown.getSelectedIndex()), zip_box.getText(),
-                Long.parseLong(phone_box.getText()), email_box.getText(), skillset_list.getSelectedValue(), "Good");
+                city_box.getText(), state, zip_box.getText(), Long.parseLong(phone_box.getText()), email_box.getText(), 
+                skillset_list.getSelectedValue(), "Good");
         Employee.addEmp(newEmp);
 
         /*
@@ -317,6 +324,58 @@ public class AddEmployeeUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    public static void populate_states_hashmap() {
+        states_map.put("Alabama", "AL");
+        states_map.put("Alaska", "AK");
+        states_map.put("Arizona", "AZ");
+        states_map.put("Arkansas", "AR");
+        states_map.put("California", "CA");
+        states_map.put("Colorado", "CO");
+        states_map.put("Connecticut", "CT");
+        states_map.put("Delaware", "DE");
+        states_map.put("Florida", "FL");
+        states_map.put("Georgia", "GA");
+        states_map.put("Hawaii", "HI");
+        states_map.put("Idaho", "ID");
+        states_map.put("Illinois", "IL");
+        states_map.put("Indiana", "IN");
+        states_map.put("Iowa", "IA");
+        states_map.put("Kansas", "KS");
+        states_map.put("Kentucky", "KY");
+        states_map.put("Louisiana", "LA");
+        states_map.put("Maine", "ME");
+        states_map.put("Maryland", "MD");
+        states_map.put("Massachusetts", "MA");
+        states_map.put("Michigan", "MI");
+        states_map.put("Minnesota", "MN");
+        states_map.put("Mississippi", "MS");
+        states_map.put("Missouri", "MO");
+        states_map.put("Montana", "MT");
+        states_map.put("Nebraska", "NE");
+        states_map.put("Nevada", "NV");
+        states_map.put("New Hampshire", "NH");
+        states_map.put("New Jersey", "NJ");
+        states_map.put("New Mexico", "NM");
+        states_map.put("New York", "NY");
+        states_map.put("North Carolina", "NC");
+        states_map.put("North Dakota", "ND");
+        states_map.put("Ohio", "OH");
+        states_map.put("Oklahoma", "OK");
+        states_map.put("Oregon", "OR");
+        states_map.put("Pennsylvania", "PA");
+        states_map.put("Rhode Island", "RI");
+        states_map.put("South Carolina", "SC");
+        states_map.put("South Dakota", "SD");
+        states_map.put("Tennessee", "TN");
+        states_map.put("Texas", "TX");
+        states_map.put("Utah", "UT");
+        states_map.put("Vermont", "VT");
+        states_map.put("Virginia", "VA");
+        states_map.put("Washington", "WA");
+        states_map.put("West Virginia", "WV");
+        states_map.put("Wisconsin", "WI");
+        states_map.put("Wyoming", "WY");
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
