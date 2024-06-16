@@ -1,6 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ *
+ * @author Nicholas Allen, Daniel F Diaz Santiago
  */
 package ECS.Main;
 
@@ -9,10 +9,6 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author nicho
- */
 public class AddEmployeeUI extends javax.swing.JFrame {
 
     public static HashMap<String, String> states_map = new HashMap<>();
@@ -25,7 +21,6 @@ public class AddEmployeeUI extends javax.swing.JFrame {
         populate_states_hashmap();
         notes_box.setLineWrap(true);
         setLocationRelativeTo(null);
-
     }
 
     /**
@@ -266,8 +261,9 @@ public class AddEmployeeUI extends javax.swing.JFrame {
         String state = states_map.get(state_dropdown.getSelectedItem().toString());
 
         if (validate_inputs()) {
-            Employee newEmp = new Employee(first_name_box.getText(), last_name_box.getText(), address_box.getText(),
-                    city_box.getText(), state, zip_box.getText(), Long.parseLong(phone_box.getText()), email_box.getText(),
+            Employee newEmp = new Employee(first_name_box.getText(), last_name_box.getText(),
+                    address_box.getText() + " " + address_box2.getText(), city_box.getText(),
+                    state, zip_box.getText(), Long.parseLong(phone_box.getText()), email_box.getText(),
                     skillset_list.getSelectedValue(), "Good");
             Employee.addEmp(newEmp);
         }
@@ -440,7 +436,7 @@ public class AddEmployeeUI extends javax.swing.JFrame {
             email_box.requestFocus();
             return false;
         }
-        
+
         // Validate skillset
         if (skillset_list.getSelectedValue() == null) {
             JOptionPane.showMessageDialog(this, "A skillset selection is required", "Input Error", JOptionPane.ERROR_MESSAGE);
