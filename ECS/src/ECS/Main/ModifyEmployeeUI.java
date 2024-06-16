@@ -302,9 +302,9 @@ public class ModifyEmployeeUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cancel_btnActionPerformed
 
     private void get_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_get_btnActionPerformed
-        String dbURL = "jdbc:mysql://localhost:3306/ceis400_group_project";
-        String username = "groupc";
-        String password = "oI209[^X`XHF";
+        final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
+        final String DB_USER = "groupc";
+        final String DB_PASSWORD = "oI209[^X`XHF";
 
         String empID = employee_id_box.getText();
 
@@ -314,7 +314,7 @@ public class ModifyEmployeeUI extends javax.swing.JFrame {
 
         try {
             // Establish connection
-            conn = DriverManager.getConnection(dbURL, username, password);
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
             String sql = "SELECT FirstName, LastName, empAddress, empCity, empState, empZip, empPhone, "
                     + "empEmail, empSkills FROM Employee WHERE empID = ?";
@@ -326,27 +326,27 @@ public class ModifyEmployeeUI extends javax.swing.JFrame {
 
             // Process results
             if (rs.next()) {
-                String firstName = rs.getString("FirstName");
-                String lastName = rs.getString("LastName");
-                String empAddress = rs.getString("empAddress");
-                String empCity = rs.getString("empCity");
-                String empState = rs.getString("empState");
-                String empZip = rs.getString("empZip");
-                String empPhone = rs.getString("empPhone");
-                String empEmail = rs.getString("empEmail");
-                String empSkills = rs.getString("empSkills");
+                String first_name = rs.getString("FirstName");
+                String last_name = rs.getString("LastName");
+                String emp_address = rs.getString("empAddress");
+                String emp_city = rs.getString("empCity");
+                String emp_state = rs.getString("empState");
+                String emp_zip = rs.getString("empZip");
+                String emp_phone = rs.getString("empPhone");
+                String emp_email = rs.getString("empEmail");
+                String emp_skills = rs.getString("empSkills");
 
                 enable_input();
-                first_name_box.setText(firstName);
-                last_name_box.setText(lastName);
-                address_box1.setText(empAddress);
-                city_box.setText(empCity);
-                state_dropdown.setSelectedItem(empState);
-                zip_box.setText(empZip);
-                phone_box.setText(empPhone);
-                email_box.setText(empEmail);
+                first_name_box.setText(first_name);
+                last_name_box.setText(last_name);
+                address_box1.setText(emp_address);
+                city_box.setText(emp_city);
+                state_dropdown.setSelectedItem(emp_state);
+                zip_box.setText(emp_zip);
+                phone_box.setText(emp_phone);
+                email_box.setText(emp_email);
                 DefaultListModel<String> listModel = new DefaultListModel<>();
-                for (String skill : empSkills.split(",")) {
+                for (String skill : emp_skills.split(",")) {
                     listModel.addElement(skill.trim());
                 }
                 skillset_list.setModel(listModel);

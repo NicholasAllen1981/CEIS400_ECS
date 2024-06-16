@@ -1,11 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ *
+ * @author Nicholas Allen, Daniel F Diaz Santiago
  */
 package ECS.Main;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import javax.swing.JOptionPane;  // Unused because the line is commented out
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nicholas Allen
@@ -18,6 +26,7 @@ public class MainUI extends javax.swing.JFrame {
     public MainUI() {
         initComponents();
         setLocationRelativeTo(null);
+        populate_table();
     }
 
     /**
@@ -52,22 +61,22 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         javax.swing.JLabel lblInUse = new javax.swing.JLabel();
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-        javax.swing.JTable jTable1 = new javax.swing.JTable();
+        checkout_table = new javax.swing.JTable();
         javax.swing.JSeparator jSeparator1 = new javax.swing.JSeparator();
         javax.swing.JTabbedPane jTabbedPane1 = new javax.swing.JTabbedPane();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
-        javax.swing.JTextField jTextField1 = new javax.swing.JTextField();
-        javax.swing.JRadioButton jRadioButton1 = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton jRadioButton2 = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton jRadioButton3 = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton jRadioButton4 = new javax.swing.JRadioButton();
+        javax.swing.JTextField searchLocalBox = new javax.swing.JTextField();
+        javax.swing.JRadioButton empIDradio = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton empNameRadio = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton transactionIDradio = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton equipmentIDradio = new javax.swing.JRadioButton();
         javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
         javax.swing.JTable jTable2 = new javax.swing.JTable();
-        javax.swing.JRadioButton jRadioButton5 = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton jRadioButton6 = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton jRadioButton7 = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton jRadioButton8 = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton dueinDateRadio = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton checkoutDateRadio = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton empNameRadio2 = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton equipmentNameRadio = new javax.swing.JRadioButton();
         javax.swing.JPanel jPanel4 = new javax.swing.JPanel();
         javax.swing.JMenuBar jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu jMenu1 = new javax.swing.JMenu();
@@ -228,7 +237,7 @@ public class MainUI extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        checkout_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -247,9 +256,9 @@ public class MainUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setShowGrid(false);
-        jTable1.setShowHorizontalLines(true);
-        jScrollPane1.setViewportView(jTable1);
+        checkout_table.setShowGrid(false);
+        checkout_table.setShowHorizontalLines(true);
+        jScrollPane1.setViewportView(checkout_table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -322,23 +331,23 @@ public class MainUI extends javax.swing.JFrame {
 
         jLabel1.setText("Search Local:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        searchLocalBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                searchLocalBoxActionPerformed(evt);
             }
         });
 
-        btnGrpSearch.add(jRadioButton1);
-        jRadioButton1.setText("Employee ID");
+        btnGrpSearch.add(empIDradio);
+        empIDradio.setText("Employee ID");
 
-        btnGrpSearch.add(jRadioButton2);
-        jRadioButton2.setText("Employee Name");
+        btnGrpSearch.add(empNameRadio);
+        empNameRadio.setText("Employee Name");
 
-        btnGrpSearch.add(jRadioButton3);
-        jRadioButton3.setText("Transaction ID");
+        btnGrpSearch.add(transactionIDradio);
+        transactionIDradio.setText("Transaction ID");
 
-        btnGrpSearch.add(jRadioButton4);
-        jRadioButton4.setText("Equipment ID");
+        btnGrpSearch.add(equipmentIDradio);
+        equipmentIDradio.setText("Equipment ID");
 
         jTable2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -355,18 +364,18 @@ public class MainUI extends javax.swing.JFrame {
         jTable2.setShowHorizontalLines(true);
         jScrollPane2.setViewportView(jTable2);
 
-        btnGrpSearch.add(jRadioButton5);
-        jRadioButton5.setText("Due-In Date");
+        btnGrpSearch.add(dueinDateRadio);
+        dueinDateRadio.setText("Due-In Date");
 
-        btnGrpSearch.add(jRadioButton6);
-        jRadioButton6.setText("Check-Out Date");
+        btnGrpSearch.add(checkoutDateRadio);
+        checkoutDateRadio.setText("Check-Out Date");
 
-        btnGrpSearch.add(jRadioButton7);
-        jRadioButton7.setText("Employee Name");
+        btnGrpSearch.add(empNameRadio2);
+        empNameRadio2.setText("Employee Name");
 
-        btnGrpSearch.add(jRadioButton8);
-        jRadioButton8.setSelected(true);
-        jRadioButton8.setText("Equipment Name");
+        btnGrpSearch.add(equipmentNameRadio);
+        equipmentNameRadio.setSelected(true);
+        equipmentNameRadio.setText("Equipment Name");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -375,27 +384,27 @@ public class MainUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1298, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1)
+                        .addComponent(searchLocalBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1)
+                        .addComponent(empIDradio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
+                        .addComponent(empNameRadio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)
+                        .addComponent(transactionIDradio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton4)
+                        .addComponent(equipmentIDradio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton8)
+                        .addComponent(equipmentNameRadio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton7)
+                        .addComponent(empNameRadio2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton6)
+                        .addComponent(checkoutDateRadio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton5)))
+                        .addComponent(dueinDateRadio)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -404,17 +413,17 @@ public class MainUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton8)
-                        .addComponent(jRadioButton7)
-                        .addComponent(jRadioButton6)
-                        .addComponent(jRadioButton5))
+                        .addComponent(equipmentNameRadio)
+                        .addComponent(empNameRadio2)
+                        .addComponent(checkoutDateRadio)
+                        .addComponent(dueinDateRadio))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchLocalBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2)
-                        .addComponent(jRadioButton3)
-                        .addComponent(jRadioButton4)))
+                        .addComponent(empIDradio)
+                        .addComponent(empNameRadio)
+                        .addComponent(transactionIDradio)
+                        .addComponent(equipmentIDradio)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                 .addContainerGap())
@@ -530,17 +539,17 @@ public class MainUI extends javax.swing.JFrame {
 
     private void btnReportDamagedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportDamagedActionPerformed
         ReportDamagedUI newFrame = new ReportDamagedUI();
-        newFrame.setVisible(true); 
+        newFrame.setVisible(true);
     }//GEN-LAST:event_btnReportDamagedActionPerformed
 
     private void btnModifyEmp_MGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyEmp_MGMTActionPerformed
         ModifyEmployeeUI newFrame = new ModifyEmployeeUI();
-        newFrame.setVisible(true); 
+        newFrame.setVisible(true);
     }//GEN-LAST:event_btnModifyEmp_MGMTActionPerformed
 
     private void btnAddEmp_MGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmp_MGMTActionPerformed
         AddEmployeeUI newFrame = new AddEmployeeUI();
-        newFrame.setVisible(true); 
+        newFrame.setVisible(true);
     }//GEN-LAST:event_btnAddEmp_MGMTActionPerformed
 
     private void btnVerifyMGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyMGMTActionPerformed
@@ -550,20 +559,90 @@ public class MainUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnVerifyMGMTActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void searchLocalBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchLocalBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_searchLocalBoxActionPerformed
 
     private void btnReportFoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportFoundActionPerformed
         ReportFoundUI newFrame = new ReportFoundUI();
-        newFrame.setVisible(true);    
-        
+        newFrame.setVisible(true);
+
     }//GEN-LAST:event_btnReportFoundActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         ViewEmployeeUI newFrame = new ViewEmployeeUI();
         newFrame.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void populate_table() {
+        final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
+        final String DB_USER = "groupc";
+        final String DB_PASSWORD = "oI209[^X`XHF";
+
+        // Hashmap for equipment descriptions, NEEDS TO BE UPDATED
+        // Fill this.
+        HashMap<Integer, String> equipment_descriptions = new HashMap<>();
+        equipment_descriptions.put(1, "DESCRIPTION 1");
+        equipment_descriptions.put(2, "DESCRIPTION 2");
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Establish connection
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+            // Fetch checkout and employee details
+            String sql = "SELECT c.TransactionID, c.emp_id, e.FirstName, e.LastName, c.EquipmentID, c.CheckoutDate, c.ReturnDate "
+                    + "FROM CEIS400_group_project.Checkout c "
+                    + "JOIN CEIS400_group_project.Employee e ON c.emp_id = e.emp_id";
+            pstmt = conn.prepareStatement(sql);
+
+            // Execute query
+            rs = pstmt.executeQuery();
+
+            // Get the table model
+            DefaultTableModel tableModel = (DefaultTableModel) checkout_table.getModel();
+
+            // Clear existing rows in the table
+            tableModel.setRowCount(0);
+
+            // Process results and add to table model
+            while (rs.next()) {
+                int transaction_id = rs.getInt("TransactionID");
+                int emp_id = rs.getInt("empID");
+                String first_name = rs.getString("FirstName");
+                String last_name = rs.getString("LastName");
+                int equipment_id = rs.getInt("EquipmentID");
+                String checkout_date = rs.getDate("CheckoutDate").toString();
+                String return_date = rs.getDate("ReturnDate") != null ? rs.getDate("ReturnDate").toString() : "";
+                String equipment_name = "Equipment " + equipment_id; // Placeholder for actual equipment name
+                String equipment_description = equipment_descriptions.getOrDefault(equipment_id, "Unknown");
+
+                tableModel.addRow(new Object[]{emp_id, first_name + " " + last_name, transaction_id, equipment_id, 
+                    equipment_name, equipment_description, checkout_date, return_date});
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            // Commented this out because my DB is empty. It keeps showing this error every time I run it.
+            //JOptionPane.showMessageDialog(this, "Error fetching check-out data.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -592,7 +671,7 @@ public class MainUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -602,5 +681,6 @@ public class MainUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    javax.swing.JTable checkout_table;
     // End of variables declaration//GEN-END:variables
 }
