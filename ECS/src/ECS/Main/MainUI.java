@@ -528,8 +528,13 @@ public class MainUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
-        CheckOutUI newFrame = new CheckOutUI();
-        newFrame.setVisible(true);
+        try {
+            int itemID = Integer.parseInt(txtItemID.getText());  // Assuming txtItemID is your text field for item ID
+            int depotID = Integer.parseInt(txtDepotID.getText());  // Assuming txtDepotID is your text field for depot ID
+            Equipment.checkOut(itemID, depotID);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Please enter valid numerical IDs.");
+        }
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
