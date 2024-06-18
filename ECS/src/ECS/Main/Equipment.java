@@ -7,7 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -32,9 +33,6 @@ public class Equipment {
     private int numOut;
     private boolean isConsumable;
     
-    // Static list to stimulate the queue of equipment to be checked out
-    private static ArrayList<Equipment> checkoutQueue = new ArrayList<>();
-    
     // Constructor
     public Equipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity) {
         this.itemID = itemID;
@@ -45,13 +43,18 @@ public class Equipment {
         this.itemAvailable = itemQuantity > 0;
         
         // Initialize database connection when the first instance is created
-        if (connection == null) {
-            try {
+        connectToDatabase();
+    }
+    
+    // Initialize database connection
+    private static void connectToDatabase() {
+        try {
+            if (connection == null) {
                 connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
                 System.out.println("Database connection successfully established.");
-            } catch (Exception e) {
-                System.out.println("Database connection failed: " + e.getMessage());
             }
+        } catch (SQLException e) {
+            System.out.println("Database connection failed: " + e.getMessage());
         }
     }
     
@@ -59,9 +62,9 @@ public class Equipment {
     
     // View Inventory (display records from database)
     private static void viewInv(){
-        System.out.println("Displaying all available inventory...");
+        System.out.println("Displaying all available equipment...");
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT itemID, itemName, itemQuantity, itemAvailable FROM inventory")) {
+             ResultSet rs = stmt.executeQuery("SELECT itemID, itemName, itemQuantity, itemAvailable FROM equipment")) {
             
             while (rs.next()) {
                 int itemID = rs.getInt("itemID");
@@ -131,16 +134,23 @@ public class Equipment {
         }
     }
     
-    // Main method for testing
-    public static void main(String[] args) {
-        Equipment hammer = new Equipment(101, "Hammer", 25, false, 10); // Test equipment
-        addQueue(hammer);
-        viewInv(); // Display inventory from database
-        checkOut(101, 001); // Simulate checking out an item
-        viewInv(); // View inventory after checkout
-        checkIn(101, 001); // Simulate checking in an item
-        viewInv(); // View inventory after check-in
-        removeQueue(101);
-        displayQueue(); // Final display of queue
+    public static void addEquipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity) {
+    connectToDatabase(); // Ensure connection is established
+    String sql = "INSERT INTO equipment (itemID, itemName, itemPrice, isConsumable, itemQuantity, itemAvailable) VALUES (?, ?, ?, ?, ?, ?)";
+    
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setInt(1, itemID);
+        stmt.setString(2, itemName);
+        stmt.setInt(3, itemPrice);
+        stmt.setBoolean(4, isConsumable);
+        stmt.setInt(5, itemQuantity);
+        stmt.setBoolean(6, itemQuantity > 0); // Set itemAvailable based on itemQuantity
+
+        int rowsAffected = stmt.executeUpdate();
+        System.out.println(rowsAffected + " rows inserted.");
+    } catch (SQLException e) {
+        System.out.println("Error adding equipment: " + e.getMessage());
     }
+}
+
 }
