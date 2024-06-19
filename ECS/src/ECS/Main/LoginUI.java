@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class LoginUI extends javax.swing.JFrame {
 
-    public static HashMap<Integer, String> users = new HashMap<>();
+    private static HashMap<Integer, String> users = new HashMap<>();
 
     /**
      * Creates new form LoginUI
@@ -86,7 +86,7 @@ public class LoginUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(empid_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
