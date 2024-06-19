@@ -36,13 +36,11 @@ public class EquipmentUI extends javax.swing.JFrame {
         btnAddEquip = new javax.swing.JButton();
         lblItemQty = new javax.swing.JLabel();
         txtItemQty = new javax.swing.JTextField();
-        lblItemAvail = new javax.swing.JLabel();
         chkConsumable = new javax.swing.JCheckBox();
-        txtItemAvail = new javax.swing.JTextField();
-        lblNumOut = new javax.swing.JLabel();
         lblItemID = new javax.swing.JLabel();
-        txtNumOut = new javax.swing.JTextField();
         txtItemID = new javax.swing.JTextField();
+        lblSkillReq = new javax.swing.JLabel();
+        txtSkillReq = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,42 +59,41 @@ public class EquipmentUI extends javax.swing.JFrame {
 
         lblItemQty.setText("Item Quantity:");
 
-        lblItemAvail.setText("Item Available:");
-
         chkConsumable.setText("Is Consumable");
 
-        lblNumOut.setText("Num Out:");
-
         lblItemID.setText("Item ID:");
+
+        lblSkillReq.setText("Skill Required:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblItemPrice)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblSkillReq)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtSkillReq, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblItemName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblItemID, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtItemID)
+                            .addComponent(txtItemName, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblItemAvail)
-                                    .addComponent(lblItemPrice))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtItemAvail, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(lblItemName)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(lblItemID)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtItemID)))
                         .addGap(78, 78, 78)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -106,17 +103,17 @@ public class EquipmentUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblItemQty)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtItemQty, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNumOut)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNumOut, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(chkConsumable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(btnAddEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtItemQty, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(chkConsumable, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnAddEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,20 +130,22 @@ public class EquipmentUI extends javax.swing.JFrame {
                     .addComponent(txtItemQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblItemID)
                     .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblItemAvail)
-                    .addComponent(txtItemAvail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNumOut)
-                    .addComponent(txtNumOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblItemPrice)
-                    .addComponent(txtItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chkConsumable, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnAddEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblItemPrice)
+                            .addComponent(txtItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSkillReq)
+                            .addComponent(txtSkillReq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(chkConsumable, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAddEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,6 +157,8 @@ public class EquipmentUI extends javax.swing.JFrame {
         if (txtItemID.getText().trim().isEmpty() || 
             txtItemName.getText().trim().isEmpty() ||
             txtItemPrice.getText().trim().isEmpty() ||
+            txtDepotID.getText().trim().isEmpty() ||
+            txtSkillReq.getText().trim().isEmpty() ||
             txtItemQty.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please fill out all fields.");
             return; // Exit the method if validation fails
@@ -166,6 +167,8 @@ public class EquipmentUI extends javax.swing.JFrame {
         // Attempt to parse integers from input fields
         int itemID = Integer.parseInt(txtItemID.getText().trim());
         String itemName = txtItemName.getText().trim();
+        int depotID = Integer.parseInt(txtDepotID.getText().trim());
+        String skillRequired = txtSkillReq.getText().trim();
         int itemPrice = Integer.parseInt(txtItemPrice.getText().trim());
         boolean isConsumable = chkConsumable.isSelected(); // Checkbox for consumable status
         int itemQuantity = Integer.parseInt(txtItemQty.getText().trim());
@@ -177,7 +180,7 @@ public class EquipmentUI extends javax.swing.JFrame {
         }
 
         // Call the method to add equipment if all validations pass
-        Equipment.addEquipment(itemID, itemName, itemPrice, isConsumable, itemQuantity);
+        Equipment.addEquipment(itemID, itemName, itemPrice, isConsumable, itemQuantity, depotID, skillRequired);
         JOptionPane.showMessageDialog(null, "Equipment added successfully!");
 
         // Optionally clear the fields after successful addition
@@ -185,6 +188,8 @@ public class EquipmentUI extends javax.swing.JFrame {
         txtItemName.setText("");
         txtItemPrice.setText("");
         txtItemQty.setText("");
+        txtDepotID.setText("");
+        txtSkillReq.setText("");
         chkConsumable.setSelected(false);
 
     } catch (NumberFormatException ex) {
@@ -236,18 +241,16 @@ public class EquipmentUI extends javax.swing.JFrame {
     private javax.swing.JButton btnAddEquip;
     private javax.swing.JCheckBox chkConsumable;
     private javax.swing.JLabel lblDepotID;
-    private javax.swing.JLabel lblItemAvail;
     private javax.swing.JLabel lblItemID;
     private javax.swing.JLabel lblItemName;
     private javax.swing.JLabel lblItemPrice;
     private javax.swing.JLabel lblItemQty;
-    private javax.swing.JLabel lblNumOut;
+    private javax.swing.JLabel lblSkillReq;
     private javax.swing.JTextField txtDepotID;
-    private javax.swing.JTextField txtItemAvail;
     private javax.swing.JTextField txtItemID;
     private javax.swing.JTextField txtItemName;
     private javax.swing.JTextField txtItemPrice;
     private javax.swing.JTextField txtItemQty;
-    private javax.swing.JTextField txtNumOut;
+    private javax.swing.JTextField txtSkillReq;
     // End of variables declaration//GEN-END:variables
 }

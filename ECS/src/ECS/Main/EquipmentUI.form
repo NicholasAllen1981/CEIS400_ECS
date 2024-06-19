@@ -24,35 +24,38 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblItemAvail" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblItemPrice" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtItemPrice" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
-                                  <Component id="txtItemAvail" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="lblItemName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtItemName" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="lblItemPrice" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtItemPrice" min="-2" pref="151" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                              <Component id="lblItemID" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtItemID" max="32767" attributes="0"/>
+                              <Component id="lblSkillReq" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="txtSkillReq" min="-2" pref="151" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblItemName" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblItemID" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtItemID" max="32767" attributes="0"/>
+                          <Component id="txtItemName" pref="150" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
@@ -65,22 +68,23 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtItemQty" min="-2" pref="150" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="lblNumOut" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkConsumable" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtNumOut" alignment="0" pref="150" max="32767" attributes="0"/>
-                                  <Component id="chkConsumable" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnAddEquip" min="-2" pref="170" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
-                      <Component id="btnAddEquip" min="-2" pref="170" max="-2" attributes="0"/>
-                  </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,22 +105,27 @@
                   <Component id="lblItemID" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtItemID" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblItemAvail" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtItemAvail" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblNumOut" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNumOut" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblItemPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtItemPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblSkillReq" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSkillReq" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="chkConsumable" min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnAddEquip" min="-2" pref="46" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblItemPrice" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtItemPrice" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="chkConsumable" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnAddEquip" min="-2" pref="46" max="-2" attributes="0"/>
-              <EmptySpace pref="88" max="32767" attributes="0"/>
+              <EmptySpace min="45" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -158,21 +167,9 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtItemQty">
     </Component>
-    <Component class="javax.swing.JLabel" name="lblItemAvail">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Item Available:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JCheckBox" name="chkConsumable">
       <Properties>
         <Property name="text" type="java.lang.String" value="Is Consumable"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtItemAvail">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblNumOut">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Num Out:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblItemID">
@@ -180,9 +177,14 @@
         <Property name="text" type="java.lang.String" value="Item ID:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNumOut">
-    </Component>
     <Component class="javax.swing.JTextField" name="txtItemID">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSkillReq">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Skill Required:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtSkillReq">
     </Component>
   </SubComponents>
 </Form>
