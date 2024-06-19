@@ -1,6 +1,6 @@
 /**
  *
- * @author Nicholas Allen, Daniel F Diaz Santiago
+ * @author Nicholas Allen, Daniel F Diaz Santiago, Vaanitya Sangwan
  */
 package ECS.Main;
 
@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Nicholas Allen
  */
 public class MainUI extends javax.swing.JFrame {
+    private JTable tblViewInvt;  // Declare the JTable here
 
     /**
      * Creates new form Main
@@ -27,6 +28,25 @@ public class MainUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         populate_table();
+        setuptblViewInvt(); // call method to setup the table
+    }
+    
+    private void initComponents() {
+        // Other components setup
+
+        // Initialize the JTable and add it to JScrollPane (if not using NetBeans GUI Builder)
+        tblViewInvt = new JTable();
+        JScrollPane scrollPane = new JScrollPane(tblViewInvt);
+        add(scrollPane); // Assuming using a simple layout
+
+        // JFrame basic setup
+        setTitle("Equipment Inventory");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new MainUI().setVisible(true));
     }
 
     /**
@@ -60,24 +80,13 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JButton btnVerifyMGMT = new javax.swing.JButton();
         javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         javax.swing.JLabel lblInUse = new javax.swing.JLabel();
-        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+        scrCheckOutList = new javax.swing.JScrollPane();
         checkout_table = new javax.swing.JTable();
         javax.swing.JSeparator jSeparator1 = new javax.swing.JSeparator();
-        javax.swing.JTabbedPane jTabbedPane1 = new javax.swing.JTabbedPane();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
-        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
-        javax.swing.JTextField searchLocalBox = new javax.swing.JTextField();
-        javax.swing.JRadioButton empIDradio = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton empNameRadio = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton transactionIDradio = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton equipmentIDradio = new javax.swing.JRadioButton();
-        javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-        javax.swing.JTable jTable2 = new javax.swing.JTable();
-        javax.swing.JRadioButton dueinDateRadio = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton checkoutDateRadio = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton empNameRadio2 = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton equipmentNameRadio = new javax.swing.JRadioButton();
-        javax.swing.JPanel jPanel4 = new javax.swing.JPanel();
+        javax.swing.JButton btnViewInvt = new javax.swing.JButton();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JTable tblVeiwInvt = new javax.swing.JTable();
         javax.swing.JMenuBar jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu jMenu1 = new javax.swing.JMenu();
         javax.swing.JMenuItem jMenuItem2 = new javax.swing.JMenuItem();
@@ -92,7 +101,9 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JPopupMenu.Separator jSeparator7 = new javax.swing.JPopupMenu.Separator();
         javax.swing.JMenuItem jMenuItem8 = new javax.swing.JMenuItem();
         javax.swing.JMenu jMenu3 = new javax.swing.JMenu();
-        javax.swing.JMenuItem jMenuItem9 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuEmpList = new javax.swing.JMenuItem();
+        javax.swing.JMenu mnuAddEquip = new javax.swing.JMenu();
+        javax.swing.JMenuItem muiOpenEquipUI = new javax.swing.JMenuItem();
 
         jMenuItem7.setText("jMenuItem7");
 
@@ -150,15 +161,15 @@ public class MainUI extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReportLost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReportLost, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReportFound, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReportFound, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReportDamaged, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReportDamaged, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -235,7 +246,7 @@ public class MainUI extends javax.swing.JFrame {
 
         lblInUse.setText("Current Checked-Out List");
 
-        jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        scrCheckOutList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         checkout_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -258,7 +269,7 @@ public class MainUI extends javax.swing.JFrame {
         });
         checkout_table.setShowGrid(false);
         checkout_table.setShowHorizontalLines(true);
-        jScrollPane1.setViewportView(checkout_table);
+        scrCheckOutList.setViewportView(checkout_table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -267,7 +278,7 @@ public class MainUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(scrCheckOutList)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblInUse)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -281,7 +292,60 @@ public class MainUI extends javax.swing.JFrame {
                     .addComponent(lblInUse)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
+                .addComponent(scrCheckOutList, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        scrCheckOutList.getAccessibleContext().setAccessibleName("checkoutQueue");
+
+        btnViewInvt.setText("View Inventory");
+        btnViewInvt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewInvtActionPerformed(evt);
+            }
+        });
+
+        tblVeiwInvt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblVeiwInvt.setShowGrid(true);
+        jScrollPane1.setViewportView(tblVeiwInvt);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnViewInvt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnViewInvt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -305,7 +369,8 @@ public class MainUI extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(6, 6, 6))))
+                        .addGap(6, 6, 6))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,125 +389,10 @@ public class MainUI extends javax.swing.JFrame {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(8, 8, 8))
-        );
-
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
-
-        jLabel1.setText("Search Local:");
-
-        searchLocalBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchLocalBoxActionPerformed(evt);
-            }
-        });
-
-        btnGrpSearch.add(empIDradio);
-        empIDradio.setText("Employee ID");
-
-        btnGrpSearch.add(empNameRadio);
-        empNameRadio.setText("Employee Name");
-
-        btnGrpSearch.add(transactionIDradio);
-        transactionIDradio.setText("Transaction ID");
-
-        btnGrpSearch.add(equipmentIDradio);
-        equipmentIDradio.setText("Equipment ID");
-
-        jTable2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTable2.setShowHorizontalLines(true);
-        jScrollPane2.setViewportView(jTable2);
-
-        btnGrpSearch.add(dueinDateRadio);
-        dueinDateRadio.setText("Due-In Date");
-
-        btnGrpSearch.add(checkoutDateRadio);
-        checkoutDateRadio.setText("Check-Out Date");
-
-        btnGrpSearch.add(empNameRadio2);
-        empNameRadio2.setText("Employee Name");
-
-        btnGrpSearch.add(equipmentNameRadio);
-        equipmentNameRadio.setSelected(true);
-        equipmentNameRadio.setText("Equipment Name");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(searchLocalBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(empIDradio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(empNameRadio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(transactionIDradio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(equipmentIDradio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(equipmentNameRadio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(empNameRadio2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkoutDateRadio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dueinDateRadio)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(equipmentNameRadio)
-                        .addComponent(empNameRadio2)
-                        .addComponent(checkoutDateRadio)
-                        .addComponent(dueinDateRadio))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(searchLocalBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(empIDradio)
-                        .addComponent(empNameRadio)
-                        .addComponent(transactionIDradio)
-                        .addComponent(equipmentIDradio)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jTabbedPane1.addTab("Local Search", jPanel2);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1310, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Regional Search", jPanel4);
 
         jMenu1.setText("File");
 
@@ -488,15 +438,27 @@ public class MainUI extends javax.swing.JFrame {
 
         jMenu3.setText("Help");
 
-        jMenuItem9.setText("jMenuItem9");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        mnuEmpList.setText("jMenuItem9");
+        mnuEmpList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                mnuEmpListActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem9);
+        jMenu3.add(mnuEmpList);
 
         jMenuBar1.add(jMenu3);
+
+        mnuAddEquip.setText("Add Equipment");
+
+        muiOpenEquipUI.setText("Open");
+        muiOpenEquipUI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                muiOpenEquipUIActionPerformed(evt);
+            }
+        });
+        mnuAddEquip.add(muiOpenEquipUI);
+
+        jMenuBar1.add(mnuAddEquip);
 
         setJMenuBar(jMenuBar1);
 
@@ -504,7 +466,6 @@ public class MainUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jTabbedPane1)
             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -512,8 +473,7 @@ public class MainUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1))
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -564,20 +524,27 @@ public class MainUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnVerifyMGMTActionPerformed
 
-    private void searchLocalBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchLocalBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchLocalBoxActionPerformed
-
     private void btnReportFoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportFoundActionPerformed
         ReportFoundUI newFrame = new ReportFoundUI();
         newFrame.setVisible(true);
 
     }//GEN-LAST:event_btnReportFoundActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void mnuEmpListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEmpListActionPerformed
         ViewEmployeeUI newFrame = new ViewEmployeeUI();
         newFrame.setVisible(true);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_mnuEmpListActionPerformed
+
+    private void btnViewInvtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewInvtActionPerformed
+        // Calling the viewInv method to get the table model
+        DefaultTableModel model = Equipment.viewInv();
+        tblVeiwInvt.setModel(model);  // Assuming inventoryTable is your JTable
+    }//GEN-LAST:event_btnViewInvtActionPerformed
+
+    private void muiOpenEquipUIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muiOpenEquipUIActionPerformed
+        EquipmentUI equipmentUI = new EquipmentUI();
+        equipmentUI.setVisible(true);
+    }//GEN-LAST:event_muiOpenEquipUIActionPerformed
 
     private void populate_table() {
         final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
@@ -687,5 +654,6 @@ public class MainUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JTable checkout_table;
+    javax.swing.JScrollPane scrCheckOutList;
     // End of variables declaration//GEN-END:variables
 }
