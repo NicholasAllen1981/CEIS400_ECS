@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,21 +26,24 @@ public class Equipment {
     
     // --- Variables ---
     public int depotID;
-    private int itemID;
-    private String itemName;
+    public int itemID;
+    public String itemName;
     public int itemQuantity;
-    private boolean itemAvailable;
-    private int itemPrice;
+    public boolean itemAvailable;
+    public int itemPrice;
     private int numOut;
-    private boolean isConsumable;
+    public boolean isConsumable;
+    public String skillRequired;
     
     // Constructor
-    public Equipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity) {
+    public Equipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity, int depotID, String skillRequired ) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.isConsumable = isConsumable;
         this.itemQuantity = itemQuantity;
+        this.depotID = depotID;
+        this.skillRequired = skillRequired;
         this.itemAvailable = itemQuantity > 0;
         
         // Initialize database connection when the first instance is created
@@ -60,27 +64,10 @@ public class Equipment {
     
     // --- Functions ---
     
-    // View Inventory (display records from database)
-    private static void viewInv(){
-        System.out.println("Displaying all available equipment...");
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT itemID, itemName, itemQuantity, itemAvailable FROM equipment")) {
-            
-            while (rs.next()) {
-                int itemID = rs.getInt("itemID");
-                String itemName = rs.getString("itemName");
-                int itemQuantity = rs.getInt("itemQuantity");
-                boolean itemAvailable = rs.getBoolean("itemAvailable");
-
-                System.out.println("Item ID: " + itemID + ", Name: " + itemName + ", Quantity: " + itemQuantity + ", Available: " + itemAvailable);
-            }
-        } catch (Exception e) {
-            System.out.println("Error accessing the database: " + e.getMessage());
-        }
-    }
+    
     
     // Check Out Equipment
-    private static void checkOut(int itemID, int depotID){
+    public static void checkOut(int itemID, int depotID){
         // Simulate checking if the employee is authorized and the item is available
          System.out.println("Checking out item ID: " + itemID + " for employee ID: " + depotID);
         for (Equipment item : checkoutQueue) {
@@ -134,23 +121,50 @@ public class Equipment {
         }
     }
     
-    public static void addEquipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity) {
+    public static void addEquipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity, int depotID, String skillRequired) {
     connectToDatabase(); // Ensure connection is established
     String sql = "INSERT INTO equipment (itemID, itemName, itemPrice, isConsumable, itemQuantity, itemAvailable) VALUES (?, ?, ?, ?, ?, ?)";
     
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
         stmt.setInt(1, itemID);
-        stmt.setString(2, itemName);
-        stmt.setInt(3, itemPrice);
-        stmt.setBoolean(4, isConsumable);
-        stmt.setInt(5, itemQuantity);
-        stmt.setBoolean(6, itemQuantity > 0); // Set itemAvailable based on itemQuantity
+        stmt.setInt(2, depotID);
+        stmt.setString(3, itemName);
+        stmt.setInt(4, itemQuantity);
+        stmt.setInt(7, itemPrice);
+        stmt.setBoolean(8, isConsumable);
+        stmt.setString(9, skillRequired);
 
         int rowsAffected = stmt.executeUpdate();
         System.out.println(rowsAffected + " rows inserted.");
     } catch (SQLException e) {
         System.out.println("Error adding equipment: " + e.getMessage());
     }
-}
+    
+    }
+    
+    // View Inventory (display records from database)
+    public static DefaultTableModel viewInv() {
+        // Columns for the JTable
+        String[] columnNames = {"Item ID", "Item Name", "Item Quantity", "Skill Required"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        System.out.println("Displaying all available equipment...");
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT itemID, itemName, itemQuantity, skillRequired FROM equipment")) {
+            
+            while (rs.next()) {
+                int itemID = rs.getInt("itemID");
+                String itemName = rs.getString("itemName");
+                int itemQuantity = rs.getInt("itemQuantity");
+                String skillRequired = rs.getString("skillRequired");
+
+                // Adding a row to the table model
+                model.addRow(new Object[]{itemID, itemName, itemQuantity, skillRequired});
+            }
+        } catch (Exception e) {
+            System.out.println("Error accessing the database: " + e.getMessage());
+        }
+        return model;
+    }
 
 }
