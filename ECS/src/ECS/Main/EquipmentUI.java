@@ -16,6 +16,7 @@ public class EquipmentUI extends javax.swing.JFrame {
      */
     public EquipmentUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
