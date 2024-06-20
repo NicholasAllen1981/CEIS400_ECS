@@ -4,6 +4,7 @@
  */
 package ECS.Main;
 
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,15 +12,22 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import java.sql.ResultSet;
-import java.security.SecureRandom;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class Employee {
 
-    // --- Variables ---
+    /* ----------------     Class variables     ---------------- */
     public static int empID;
     public static int DepotEmpID;
     public static int maintID;
-    private String empPass;
+    private static String empPass;
     public static String empFirstName;
     public static String empLastName;
     public static String empEmail;
@@ -28,26 +36,26 @@ public class Employee {
     public static String empState;
     public static String empZip;
     public static Long empPhone;
-    /*
-        empPhone needs to be BIGINT or STRING in database.
-        int is too small for a full phone number, and long is too big for an INT in sql.
-        As of now, adding and employee will always fail because of this.
-    */
     public static String empSkills;
     public static String empStatus;
     //public static int empDepotID;
     //public static int maintID;
 
-    // Database variables
+    /* ----------------     Database variables  ---------------- */
     private static final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
     private static final String DB_USER = "groupc";
     private static final String DB_PASSWORD = "oI209[^X`XHF";
     private static Connection connection = null;
     private static SecureRandom random = new SecureRandom();
 
+    /* ----------------     Email variables     ---------------- */
+    // Temporary email until we make one. We can make a temporary gmail.
+    final private static String from = "email@gmail.com";
+    final private static String password = "password";
+
     // Contructor
-    Employee(String _empFirstName, String _empLastName, String _empAddress, 
-            String _empCity, String _empState, String _empZip, Long _empPhone, 
+    Employee(String _empFirstName, String _empLastName, String _empAddress,
+            String _empCity, String _empState, String _empZip, Long _empPhone,
             String _empEmail, String _empSkills, String _empStatus) {
         this.empFirstName = _empFirstName;
         this.empLastName = _empLastName;
@@ -74,7 +82,8 @@ public class Employee {
         }
     }
 
-    // --- Functions ---
+    /* ----------------     Functions       ---------------- */
+ /* ----------------     Generating Functions (Start)       ---------------- */
     // Used by generatePass()
     private static String shuffleString(String input) {
         char[] characters = input.toCharArray();
@@ -132,7 +141,7 @@ public class Employee {
         return nextEmpID;
     }
 
-     // Generate a unique DepotEmpID
+    // Generate a unique DepotEmpID
     private final static int generateDepotEmpID() {
         String sql = "SELECT MAX(DepotEmpID) FROM Employee";
         int nextDepotEmpID = 1;
@@ -162,6 +171,7 @@ public class Employee {
         return nextMaintID;
     }
 
+    /* ----------------     Generating Functions (End)       ---------------- */
     // Add Employee (new hire)
     public static void addEmp(Employee emp) {
         emp.empPass = generatePass();
@@ -228,13 +238,51 @@ public class Employee {
     // ** if action == false, send notification of termination **
     // ** if action == true, send notification for added **
     private static void notifyEmp(boolean action) {
-        // Implement email notification logic here
-        // Send the generated temporary password to the new employee (empPass)
-        // Send empID, DepotEmpID, and maintID
+        String subject;
+        String body;
+        
+        /* ---------------- Employee termination email notification ---------------- */
         if (!action) {
+            subject = "Notice of Termination of Employment";
+            body = "Dear " + empFirstName + " " + empLastName + ",\n\n"
+                    + "I hope this message finds you well.\n\n"
+                    + "We regret to inform you that, effective " + java.time.LocalDate.now() + ", your employment with GB Manufacturing will "
+                    + "be terminated. This decision is final and has been made after careful consideration.\n\n"
+                    + "We request that you return any company property in your possession by [return date].\n\n"
+                    + "We appreciate the efforts you have contributed to the company during your tenure. If you have any questions or "
+                    + "need further clarification, please do not hesitate to contact HR at (915) 555-0123.\n\n"
+                    + "We wish you all the best in your future endeavors.\n\n"
+                    + "Sincerely,\n\n"
+                    + "John Smith\n"
+                    + "Human Resources Manager\n"
+                    + "GB Manufacturing\n"
+                    + "(915) 555-0123";
+
+            sendEmail(empEmail, subject, body);  // Email notification
             System.out.println("Employee Terminated\nEmail notification sent to "
                     + empFirstName + " " + empLastName + " (Email: " + empEmail + ")");
         }
+
+        /* ---------------- New employee email notification ---------------- */
+        subject = "Welcome to GB Manufacturing - New Employee Information";
+        body = "Dear " + empFirstName + " " + empLastName + ",\n\n"
+                + "Welcome to GB Manufacturing! We are excited to have you join our team.\n\n"
+                + "As part of our onboarding process, here are your new employee details:\n\n"
+                + "Employee ID: " + Integer.toString(empID) + "\n"
+                + "Depot Employee ID: " + Integer.toString(DepotEmpID) + "\n"
+                + "Maintenance Employee ID: " + Integer.toString(maintID) + "\n"
+                + "Temporary Password: " + empPass + "\n"
+                + "Please make sure to change your temporary password after your first login for security purposes.\n\n"
+                + "If you have any questions or need further assistance, feel free to reach out to our HR department "
+                + "at (915) 555-0123.\n\n"
+                + "Once again, welcome to the team! We look forward to working with you.\n\n"
+                + "Best regards,\n\n"
+                + "John Smith\n"
+                + "Human Resources Manager\n"
+                + "GB Manufacturing\n"
+                + "(915) 555-0123";
+
+        sendEmail(empEmail, subject, body);  // Email notification
         System.out.println("Employee Added\nEmail notification sent to " + empFirstName
                 + " " + empLastName + " (Email: " + empEmail + ")");
     }
@@ -249,6 +297,36 @@ public class Employee {
             }
         }
         System.out.println("Connection closed");
+    }
+
+    public static void sendEmail(String to, String subject, String body) {
+        // Setup mail server
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+
+            message.setSubject(subject);
+            message.setText(body);
+
+            Transport.send(message);
+
+            System.out.println("Email sent successfully!");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) {
