@@ -27,7 +27,8 @@ public class MainUI extends javax.swing.JFrame {
     public MainUI() {
         initComponents();
         setLocationRelativeTo(null);
-        populate_table();
+        populate_checkedout_table();
+        populate_equipment_table();
     }
 
     /**
@@ -64,6 +65,8 @@ public class MainUI extends javax.swing.JFrame {
         scrCheckOutList = new javax.swing.JScrollPane();
         checkout_table = new javax.swing.JTable();
         javax.swing.JSeparator jSeparator1 = new javax.swing.JSeparator();
+        scrCheckOutList1 = new javax.swing.JScrollPane();
+        equipment_table = new javax.swing.JTable();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
         javax.swing.JButton btnViewInvt = new javax.swing.JButton();
         javax.swing.JScrollPane scrViewInv = new javax.swing.JScrollPane();
@@ -254,6 +257,31 @@ public class MainUI extends javax.swing.JFrame {
         checkout_table.setShowHorizontalLines(true);
         scrCheckOutList.setViewportView(checkout_table);
 
+        scrCheckOutList1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        equipment_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Employee ID", "Employee Name", "Transaction ID", "Equipment ID", "Equipment Name", "Equipment Description", "Check Out Date", "Due In Date"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        equipment_table.setShowGrid(false);
+        equipment_table.setShowHorizontalLines(true);
+        scrCheckOutList1.setViewportView(equipment_table);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -265,7 +293,8 @@ public class MainUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblInUse)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1)))
+                        .addComponent(jSeparator1))
+                    .addComponent(scrCheckOutList1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -276,6 +305,8 @@ public class MainUI extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrCheckOutList, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrCheckOutList1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -356,8 +387,8 @@ public class MainUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -452,7 +483,7 @@ public class MainUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+                .addContainerGap())
         );
 
         pack();
@@ -536,11 +567,85 @@ public class MainUI extends javax.swing.JFrame {
         LoginUI login_ui = new LoginUI();
         login_ui.setVisible(true);
     }//GEN-LAST:event_login_menu_itemActionPerformed
+private void populate_equipment_table() {
+        System.out.println("Connecting to Database to populate Inventory...");
 
-    private void populate_table() {
         final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
-        final String DB_USER = "groupc";
-        final String DB_PASSWORD = "oI209[^X`XHF";
+        final String DB_USER = "user";
+        final String DB_PASSWORD = "devry123";
+        
+
+        // Hashmap for equipment descriptions, NEEDS TO BE UPDATED
+        // Fill this.
+        
+        HashMap<Integer, String> equipment_descriptions = new HashMap<>();
+        equipment_descriptions.put(1, "DESCRIPTION 1");
+        equipment_descriptions.put(2, "DESCRIPTION 2");
+        
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Establish connection
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            System.out.println("Connection Succeeded...");
+            // Fetch checkout and employee details
+            String sql = "SELECT e.itemID, e.itemName, e.itemQuantity, e.itemAvailability, e.numOut, e.itemPrice, e.isConsumable, e.SkillRequired "
+                    + "FROM CEIS400_group_project.Equipment e ";
+            pstmt = conn.prepareStatement(sql);
+
+            // Execute query
+            rs = pstmt.executeQuery();
+
+            // Get the table model
+            DefaultTableModel tableModel = (DefaultTableModel) equipment_table.getModel();
+
+            // Clear existing rows in the table
+            tableModel.setRowCount(0);
+            
+            // Process results and add to table model
+            while (rs.next()) {
+                System.out.println("Compiling data...");
+                int item_id = rs.getInt("itemID");
+                String item_name = rs.getString("itemName");
+                int item_quantity = rs.getInt("itemQuantity");
+                int item_availability = rs.getInt("itemAvailability");
+                int num_out = rs.getInt("numOut");
+                int item_price = rs.getInt("itemPrice");
+                int is_consumable = rs.getInt("isConsumable");
+                String skill_required = rs.getString("SkillRequired");
+                String equipment_description = equipment_descriptions.getOrDefault(item_id, "Unknown");
+
+                tableModel.addRow(new Object[]{item_id, item_name, equipment_description, item_quantity, item_availability, 
+                    num_out, item_price, is_consumable, skill_required});
+                System.out.println("Adding Row Succeeded...");                
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            // Commented this out because my DB is empty. It keeps showing this error every time I run it.
+            //JOptionPane.showMessageDialog(this, "Error fetching check-out data.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+                System.out.println("Database Connection Closed...");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private void populate_checkedout_table() {
+        final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
+        final String DB_USER = "user";
+        final String DB_PASSWORD = "devry123";
 
         // Hashmap for equipment descriptions, NEEDS TO BE UPDATED
         // Fill this.
@@ -557,9 +662,9 @@ public class MainUI extends javax.swing.JFrame {
             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
             // Fetch checkout and employee details
-            String sql = "SELECT c.TransactionID, c.emp_id, e.FirstName, e.LastName, c.EquipmentID, c.CheckoutDate, c.ReturnDate "
+            String sql = "SELECT c.TransactionID, c.empID, e.FirstName, e.LastName, c.EquipmentID, c.CheckoutDate, c.ReturnDate "
                     + "FROM CEIS400_group_project.Checkout c "
-                    + "JOIN CEIS400_group_project.Employee e ON c.emp_id = e.emp_id";
+                    + "JOIN CEIS400_group_project.Employee e ON c.empID = e.empID";
             pstmt = conn.prepareStatement(sql);
 
             // Execute query
@@ -647,6 +752,9 @@ public class MainUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JTable checkout_table;
+    javax.swing.JTable equipment_table;
     javax.swing.JScrollPane scrCheckOutList;
+    javax.swing.JScrollPane scrCheckOutList1;
     // End of variables declaration//GEN-END:variables
+
 }
