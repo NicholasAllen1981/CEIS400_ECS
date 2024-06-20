@@ -248,7 +248,7 @@ public class Employee {
                     + "I hope this message finds you well.\n\n"
                     + "We regret to inform you that, effective " + java.time.LocalDate.now() + ", your employment with GB Manufacturing will "
                     + "be terminated. This decision is final and has been made after careful consideration.\n\n"
-                    + "We request that you return any company property in your possession by [return date].\n\n"
+                    + "We request that you return any company property in your possession by " + java.time.LocalDate.now().plus(5) + ".\n\n"
                     + "We appreciate the efforts you have contributed to the company during your tenure. If you have any questions or "
                     + "need further clarification, please do not hesitate to contact HR at (915) 555-0123.\n\n"
                     + "We wish you all the best in your future endeavors.\n\n"
