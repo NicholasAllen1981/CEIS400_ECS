@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `ceis400_group_project`.`Employee` (
   `empCity` VARCHAR(45) NOT NULL,
   `empState` TEXT(2) NOT NULL,
   `empZip` VARCHAR(10) NOT NULL,
-  `empPhone` INT(10) NULL,
+  `empPhone` BIGINT(15) NULL,
   `empEmail` VARCHAR(45) NULL,
   `empSkills` VARCHAR(45) NOT NULL,
   `TerminationStatus` VARCHAR(45) NOT NULL,

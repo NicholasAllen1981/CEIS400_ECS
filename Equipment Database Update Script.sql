@@ -41,6 +41,6 @@ Equipment.`SkillRequired` = temp_Table.`SkillRequired`,
 Equipment.`DamageType` = temp_Table.`DamageType`, 
 Equipment.`EquipNotes` = temp_Table.`EquipNotes`;
 -- select * from temp_Table;                               --  used for testing --
- select * from Equipment;                                 --  used for testing --
+-- select * from Equipment;                                 --  used for testing --
 SET FOREIGN_KEY_CHECKS = 1;
 DROP TABLE IF EXISTS temp_Table;

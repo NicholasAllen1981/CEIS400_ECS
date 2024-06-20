@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS temp_Table;
 CREATE TEMPORARY TABLE temp_Table
 (`empID` int, `empPassword` varchar(30), `FirstName` varchar(30), `LastName` varchar(30), `empAddress` varchar(45), `empCity` varchar(45), `empState` varchar(45), `empZip` varchar(10),
-`empPhone` int(11), `empEmail` varchar(45), `empSkills` varchar(45), `TerminationStatus` varchar(45), `DepotEmpID` int, `maintID` int,
+`empPhone` BIGINT(11), `empEmail` varchar(45), `empSkills` varchar(45), `TerminationStatus` varchar(45), `DepotEmpID` int, `maintID` int,
 PRIMARY KEY (`empID`));
 
 
