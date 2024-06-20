@@ -128,58 +128,30 @@ public class Employee {
         return shuffleString(password.toString());
     }
 
-    // Generate a unique empID
-    private final static int generateEmpID() {
-        String sql = "SELECT MAX(empID) FROM Employee";
-        int nextEmpID = 1;
+    // Generate a unique IDs
+    // SELECT MAX(empID) FROM Employee          -   For empID
+    // SELECT MAX(DepotEmpID) FROM Employee     -   For DepotEmpID
+    // SELECT MAX(maintID) FROM Employee        -   For maintID
+    private final static int generateID(String sql) {
+        int nextID = 1;
         try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             if (rs.next()) {
-                int maxEmpID = rs.getInt(1);
-                nextEmpID = maxEmpID + 1;
+                int maxID = rs.getInt(1);
+                nextID = maxID + 1;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return nextEmpID;
-    }
-
-    // Generate a unique DepotEmpID
-    private final static int generateDepotEmpID() {
-        String sql = "SELECT MAX(DepotEmpID) FROM Employee";
-        int nextDepotEmpID = 1;
-        try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                int maxEmpID = rs.getInt(1);
-                nextDepotEmpID = maxEmpID + 1;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return nextDepotEmpID;
-    }
-
-    // Generate a unique MaintID
-    private final static int generateMaintID() {
-        String sql = "SELECT MAX(maintID) FROM Employee";
-        int nextMaintID = 1;
-        try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                int maxEmpID = rs.getInt(1);
-                nextMaintID = maxEmpID + 1;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return nextMaintID;
+        return nextID;
     }
 
     /* ----------------     Generating Functions (End)       ---------------- */
     // Add Employee (new hire)
     public static void addEmp(Employee emp) {
         emp.empPass = generatePass();
-        emp.empID = generateEmpID();
-        emp.DepotEmpID = generateDepotEmpID();
-        emp.maintID = generateMaintID();
+        emp.empID = generateID("SELECT MAX(empID) FROM Employee");
+        emp.DepotEmpID = generateID("SELECT MAX(DepotEmpID) FROM Employee");
+        emp.maintID = generateID("SELECT MAX(maintID) FROM Employee");
         JFrame frame = new JFrame();
 
         String sql = "INSERT INTO Employee (empID, FirstName, LastName, empPassword, empAddress, empCity, empState, empZip, "
@@ -244,7 +216,7 @@ public class Employee {
         String body;
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
-        
+
         /* ---------------- Employee termination email notification ---------------- */
         if (!action) {
             subject = "Notice of Termination of Employment";
@@ -326,8 +298,6 @@ public class Employee {
             message.setText(body);
 
             Transport.send(message);
-
-            System.out.println("Email sent successfully!");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
