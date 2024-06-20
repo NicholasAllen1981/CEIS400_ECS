@@ -56,15 +56,21 @@ public class Equipment {
     // Initialize database connection
     private static Connection connectToDatabase() {
     try {
+        // Explicitly load the MySQL JDBC driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
         if (connection == null) {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             System.out.println("Database connection successfully established.");
         }
+    } catch (ClassNotFoundException e) {
+        System.err.println("JDBC Driver not found: " + e.getMessage());
     } catch (SQLException e) {
-        System.out.println("Database connection failed: " + e.getMessage());
+        System.err.println("Database connection failed: " + e.getMessage());
+        System.err.println("SQL State: " + e.getSQLState());
+        System.err.println("Error Code: " + e.getErrorCode());
     }
     return connection;
-}
+    }
     
     // --- Functions ---
     
@@ -205,21 +211,27 @@ public class Equipment {
     
     public static void addEquipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity, int depotID, String skillRequired) {
     connectToDatabase(); // Ensure connection is established
-    String sql = "INSERT INTO equipment (itemID, itemName, itemPrice, isConsumable, itemQuantity, itemAvailable) VALUES (?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO equipment (itemID, depotID, itemName, itemQuantity, itemPrice, isConsumable, skillRequired) VALUES (?, ?, ?, ?, ?, ?, ?)";
     
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
         stmt.setInt(1, itemID);
         stmt.setInt(2, depotID);
         stmt.setString(3, itemName);
         stmt.setInt(4, itemQuantity);
-        stmt.setInt(7, itemPrice);
-        stmt.setBoolean(8, isConsumable);
-        stmt.setString(9, skillRequired);
+        stmt.setInt(5, itemPrice);
+        stmt.setBoolean(6, isConsumable);
+        stmt.setString(7, skillRequired);
 
         int rowsAffected = stmt.executeUpdate();
         System.out.println(rowsAffected + " rows inserted.");
     } catch (SQLException e) {
-        System.out.println("Error adding equipment: " + e.getMessage());
+        System.err.println("SQL Error: " + e.getMessage());
+        System.err.println("SQL State: " + e.getSQLState());
+        System.err.println("Error Code: " + e.getErrorCode());
+        e.printStackTrace();
+    } catch (Exception e) {
+        System.err.println("Non-SQL Error: " + e.getMessage());
+        e.printStackTrace();
     }
     
     }
@@ -230,6 +242,10 @@ public class Equipment {
         inventoryText.append("Item ID\tItem Name\tItem Quantity\tSkill Required\n"); // Header for the text area
 
         System.out.println("Displaying all available equipment...");
+        if (connection == null) {
+        connectToDatabase();
+        }
+        
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT itemID, itemName, itemQuantity, skillRequired FROM equipment")) {
             
@@ -242,9 +258,18 @@ public class Equipment {
                 // Format each row as a line in the text area
                 inventoryText.append(String.format("%d\t%s\t%d\t%s\n", itemID, itemName, itemQuantity, skillRequired));
             }
-        } catch (Exception e) {
-            System.out.println("Error accessing the database: " + e.getMessage());
-            return "Error loading inventory.";
+        } 
+        catch (SQLException e) {
+            System.err.println("SQL Error: " + e.getMessage());
+            System.err.println("SQL State: " + e.getSQLState());
+            System.err.println("Error Code: " + e.getErrorCode());
+            e.printStackTrace();
+            return "Failed to load inventory. Please check the console for more information.";
+        } 
+        catch (Exception e) {
+            System.err.println("General Error: " + e.getMessage());
+            e.printStackTrace();
+            return "An unexpected error occurred. Please check the console for more information.";
         }
         return inventoryText.toString();
     }
