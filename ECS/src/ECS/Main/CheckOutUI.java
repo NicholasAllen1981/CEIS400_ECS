@@ -28,12 +28,14 @@ public class CheckOutUI extends javax.swing.JFrame {
     private JTextArea jTextArea1;
     private JProgressBar jProgressBar1;
     private JTextArea jTextArea2;
-    */
+    
     private JTextField txtItemID;
     private JTextField txtItemName;
     private JTextField txtEmpID;
     private JFormattedTextField txtCheckoutDate;
     private JFormattedTextField txtReturnDate;
+    */
+    
     /**
      * Creates new form CheckInUI
      */
@@ -251,7 +253,7 @@ public class CheckOutUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
-        try {
+       /* try {
             int itemID = Integer.parseInt(txtItemID.getText());  
             int empID = Integer.parseInt(txtEmpID.getText());  
             String itemName = txtItemName.getText();  // 
@@ -276,6 +278,7 @@ public class CheckOutUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error during checkout: " + e.getMessage());
         }
         }
+        */
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     /**
