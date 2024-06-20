@@ -14,12 +14,12 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;  // Unused because the line is commented out
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author Nicholas Allen
  */
 public class MainUI extends javax.swing.JFrame {
-    private JTable tblViewInvt;  // Declare the JTable here
 
     /**
      * Creates new form Main
@@ -28,25 +28,6 @@ public class MainUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         populate_table();
-        setuptblViewInvt(); // call method to setup the table
-    }
-    
-    private void initComponents() {
-        // Other components setup
-
-        // Initialize the JTable and add it to JScrollPane (if not using NetBeans GUI Builder)
-        tblViewInvt = new JTable();
-        JScrollPane scrollPane = new JScrollPane(tblViewInvt);
-        add(scrollPane); // Assuming using a simple layout
-
-        // JFrame basic setup
-        setTitle("Equipment Inventory");
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainUI().setVisible(true));
     }
 
     /**
@@ -65,8 +46,8 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JLabel lblInUse4 = new javax.swing.JLabel();
         javax.swing.JSeparator jSeparator8 = new javax.swing.JSeparator();
         javax.swing.JPanel jPanel6 = new javax.swing.JPanel();
-        javax.swing.JButton btnCheckOut = new javax.swing.JButton();
-        javax.swing.JButton btnCheckIn = new javax.swing.JButton();
+        javax.swing.JButton btnBeginCheckOut = new javax.swing.JButton();
+        javax.swing.JButton btnBeginCheckIn = new javax.swing.JButton();
         javax.swing.JButton btnReportLost = new javax.swing.JButton();
         javax.swing.JButton btnReportFound = new javax.swing.JButton();
         javax.swing.JButton btnReportDamaged = new javax.swing.JButton();
@@ -85,8 +66,8 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JSeparator jSeparator1 = new javax.swing.JSeparator();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
         javax.swing.JButton btnViewInvt = new javax.swing.JButton();
-        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-        javax.swing.JTable tblVeiwInvt = new javax.swing.JTable();
+        javax.swing.JScrollPane scrViewInv = new javax.swing.JScrollPane();
+        javax.swing.JTextArea txaViewInv = new javax.swing.JTextArea();
         javax.swing.JMenuBar jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu jMenu1 = new javax.swing.JMenu();
         javax.swing.JMenuItem jMenuItem2 = new javax.swing.JMenuItem();
@@ -125,17 +106,17 @@ public class MainUI extends javax.swing.JFrame {
 
         jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
 
-        btnCheckOut.setText("Begin Check-Out");
-        btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
+        btnBeginCheckOut.setText("Begin Check-Out");
+        btnBeginCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCheckOutActionPerformed(evt);
+                btnBeginCheckOutActionPerformed(evt);
             }
         });
 
-        btnCheckIn.setText("Begin Check-In");
-        btnCheckIn.addActionListener(new java.awt.event.ActionListener() {
+        btnBeginCheckIn.setText("Begin Check-In");
+        btnBeginCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCheckInActionPerformed(evt);
+                btnBeginCheckInActionPerformed(evt);
             }
         });
 
@@ -161,9 +142,9 @@ public class MainUI extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addComponent(btnBeginCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addComponent(btnBeginCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnReportLost, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -177,8 +158,8 @@ public class MainUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBeginCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBeginCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReportLost, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReportFound, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReportDamaged, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -305,25 +286,9 @@ public class MainUI extends javax.swing.JFrame {
             }
         });
 
-        tblVeiwInvt.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblVeiwInvt.setShowGrid(true);
-        jScrollPane1.setViewportView(tblVeiwInvt);
+        txaViewInv.setColumns(20);
+        txaViewInv.setRows(4);
+        scrViewInv.setViewportView(txaViewInv);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -332,7 +297,7 @@ public class MainUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(scrViewInv)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnViewInvt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -344,7 +309,7 @@ public class MainUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnViewInvt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(scrViewInv, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -487,63 +452,67 @@ public class MainUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
-        try {
-            int itemID = Integer.parseInt(txtItemID.getText());  // Assuming txtItemID is your text field for item ID
-            int depotID = Integer.parseInt(txtDepotID.getText());  // Assuming txtDepotID is your text field for depot ID
-            Equipment.checkOut(itemID, depotID);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Please enter valid numerical IDs.");
-        }
-    }//GEN-LAST:event_btnCheckOutActionPerformed
+    private void btnBeginCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeginCheckOutActionPerformed
+        CheckOutUI checkOutFrame = new CheckOutUI();  // Create a new instance of CheckOutUI
+        checkOutFrame.setVisible(true);  // Make the CheckOutUI visible
+        checkOutFrame.setLocationRelativeTo(null);  // Center the CheckOutUI on the screen
+    }//GEN-LAST:event_btnBeginCheckOutActionPerformed
 
-    private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
-        CheckInUI newFrame = new CheckInUI();
-        newFrame.setVisible(true);
-    }//GEN-LAST:event_btnCheckInActionPerformed
+    private void btnBeginCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeginCheckInActionPerformed
+        CheckInUI checkInFrame = new CheckInUI();
+        checkInFrame.setVisible(true);
+        checkInFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnBeginCheckInActionPerformed
 
     private void btnReportDamagedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportDamagedActionPerformed
         ReportDamagedUI newFrame = new ReportDamagedUI();
         newFrame.setVisible(true);
+        newFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnReportDamagedActionPerformed
 
     private void btnModifyEmp_MGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyEmp_MGMTActionPerformed
         ModifyEmployeeUI newFrame = new ModifyEmployeeUI();
         newFrame.setVisible(true);
+        newFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnModifyEmp_MGMTActionPerformed
 
     private void btnAddEmp_MGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmp_MGMTActionPerformed
         AddEmployeeUI newFrame = new AddEmployeeUI();
         newFrame.setVisible(true);
+        newFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnAddEmp_MGMTActionPerformed
 
     private void btnVerifyMGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyMGMTActionPerformed
-
         VerifyManagementUI newFrame = new VerifyManagementUI();
         newFrame.setVisible(true);
+        newFrame.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_btnVerifyMGMTActionPerformed
 
     private void btnReportFoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportFoundActionPerformed
         ReportFoundUI newFrame = new ReportFoundUI();
         newFrame.setVisible(true);
+        newFrame.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_btnReportFoundActionPerformed
 
     private void mnuEmpListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEmpListActionPerformed
         ViewEmployeeUI newFrame = new ViewEmployeeUI();
         newFrame.setVisible(true);
+        newFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_mnuEmpListActionPerformed
 
     private void btnViewInvtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewInvtActionPerformed
-        // Calling the viewInv method to get the table model
-        DefaultTableModel model = Equipment.viewInv();
-        tblVeiwInvt.setModel(model);  // Assuming inventoryTable is your JTable
+        // Calling the viewInv method to get the text area for View Inventory
+        String inventoryData = Equipment.viewInv();
+        txaViewInv.setText(inventoryData);
+    
     }//GEN-LAST:event_btnViewInvtActionPerformed
 
     private void muiOpenEquipUIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muiOpenEquipUIActionPerformed
-        EquipmentUI equipmentUI = new EquipmentUI();
+        AddEquipmentUI equipmentUI = new AddEquipmentUI();
         equipmentUI.setVisible(true);
+        equipmentUI.setLocationRelativeTo(null);
     }//GEN-LAST:event_muiOpenEquipUIActionPerformed
 
     private void populate_table() {
@@ -651,6 +620,8 @@ public class MainUI extends javax.swing.JFrame {
             }
         });
     }
+    
+    private javax.swing.JTextArea txaViewInv;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JTable checkout_table;

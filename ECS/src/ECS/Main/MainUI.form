@@ -240,9 +240,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCheckOut" pref="248" max="32767" attributes="0"/>
+                      <Component id="btnBeginCheckOut" pref="248" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCheckIn" pref="239" max="32767" attributes="0"/>
+                      <Component id="btnBeginCheckIn" pref="239" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="btnReportLost" pref="244" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -258,8 +258,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnCheckOut" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="btnCheckIn" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="btnBeginCheckOut" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="btnBeginCheckIn" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="btnReportLost" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="btnReportFound" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="btnReportDamaged" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
@@ -270,20 +270,20 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnCheckOut">
+            <Component class="javax.swing.JButton" name="btnBeginCheckOut">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Begin Check-Out"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCheckOutActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBeginCheckOutActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnCheckIn">
+            <Component class="javax.swing.JButton" name="btnBeginCheckIn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Begin Check-In"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCheckInActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBeginCheckInActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnReportLost">
@@ -489,7 +489,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                          <Component id="scrViewInv" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="btnViewInvt" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -505,7 +505,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnViewInvt" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="153" max="32767" attributes="0"/>
+                      <Component id="scrViewInv" pref="153" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -520,21 +520,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewInvtActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+            <Container class="javax.swing.JScrollPane" name="scrViewInv">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tblVeiwInvt">
+                <Component class="javax.swing.JTextArea" name="txaViewInv">
                   <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="10">
-                        <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 4" type="java.lang.Object"/>
-                      </Table>
-                    </Property>
-                    <Property name="showGrid" type="boolean" value="true"/>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="rows" type="int" value="4"/>
                   </Properties>
                 </Component>
               </SubComponents>
