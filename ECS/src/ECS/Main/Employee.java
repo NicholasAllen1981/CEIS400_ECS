@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -240,15 +242,17 @@ public class Employee {
     private static void notifyEmp(boolean action) {
         String subject;
         String body;
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
         
         /* ---------------- Employee termination email notification ---------------- */
         if (!action) {
             subject = "Notice of Termination of Employment";
             body = "Dear " + empFirstName + " " + empLastName + ",\n\n"
                     + "I hope this message finds you well.\n\n"
-                    + "We regret to inform you that, effective " + java.time.LocalDate.now() + ", your employment with GB Manufacturing will "
+                    + "We regret to inform you that, effective " + today.format(formatter) + ", your employment with GB Manufacturing will "
                     + "be terminated. This decision is final and has been made after careful consideration.\n\n"
-                    + "We request that you return any company property in your possession by [return date].\n\n"
+                    + "We request that you return any company property in your possession by " + today.plusDays(5).format(formatter) + ".\n\n"
                     + "We appreciate the efforts you have contributed to the company during your tenure. If you have any questions or "
                     + "need further clarification, please do not hesitate to contact HR at (915) 555-0123.\n\n"
                     + "We wish you all the best in your future endeavors.\n\n"
