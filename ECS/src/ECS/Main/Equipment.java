@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
+import java.util.UUID;
+import java.util.Date;
+
 
 /**
  *
@@ -31,15 +33,16 @@ public class Equipment {
     public int itemQuantity;
     public boolean itemAvailable;
     public int itemPrice;
-    private int numOut;
+    public int numOut;
     public boolean isConsumable;
     public String skillRequired;
     
     // Constructor
-    public Equipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity, int depotID, String skillRequired ) {
+    public Equipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity, int depotID, String skillRequired, int numOut, boolean itemAvailable ) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
+        this.numOut = numOut;
         this.isConsumable = isConsumable;
         this.itemQuantity = itemQuantity;
         this.depotID = depotID;
@@ -51,53 +54,131 @@ public class Equipment {
     }
     
     // Initialize database connection
-    private static void connectToDatabase() {
-        try {
-            if (connection == null) {
-                connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-                System.out.println("Database connection successfully established.");
-            }
-        } catch (SQLException e) {
-            System.out.println("Database connection failed: " + e.getMessage());
+    private static Connection connectToDatabase() {
+    try {
+        if (connection == null) {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            System.out.println("Database connection successfully established.");
         }
+    } catch (SQLException e) {
+        System.out.println("Database connection failed: " + e.getMessage());
     }
+    return connection;
+}
     
     // --- Functions ---
     
     
     
     // Check Out Equipment
-    public static void checkOut(int itemID, int depotID){
-        // Simulate checking if the employee is authorized and the item is available
-         System.out.println("Checking out item ID: " + itemID + " for employee ID: " + depotID);
-        for (Equipment item : checkoutQueue) {
-            if (item.itemID == itemID && item.itemAvailable && item.itemQuantity > 0) {
-                item.itemQuantity--; // Decrement the quantity
-                item.numOut++; // Increment the count of items checked out
-                item.itemAvailable = item.itemQuantity > 0; // Update availability
-                System.out.println("Item checked out successfully: " + item.itemName);
-                return;
+    public static void checkOut(int itemID, int empID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity, int depotID, String skillRequired, Date checkoutDate, Date returnDate) {
+        if (connection == null) {
+            // Assume a method getConnection() that handles the connection setup
+            connection = connectToDatabase();
+        }
+
+        try {
+            // Begin transaction
+            connection.setAutoCommit(false);
+
+            // SQL to update the equipment table
+            String updateSql = "UPDATE equipment SET itemQuantity = itemQuantity - 1, numOut = numOut + 1, itemAvailable = (itemQuantity > 0) WHERE itemID = ?";
+            try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
+                updateStmt.setInt(1, itemID);
+                int count = updateStmt.executeUpdate();
+                if (count == 0) {
+                    System.out.println("Item not available!");
+                    connection.rollback();
+                    return;
+                }
+            }
+
+            // SQL to insert into checkout table
+            String insertSql = "INSERT INTO Checkout (TransactionID, empID, EquipmentID, CheckoutDate, ReturnDate) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
+                // Assume a method to generate a unique transaction ID
+                String transactionID = generateTransactionID();
+
+                insertStmt.setString(1, transactionID);
+                insertStmt.setInt(2, empID);
+                insertStmt.setInt(3, itemID);
+                insertStmt.setDate(4, new java.sql.Date(checkoutDate.getTime()));
+                insertStmt.setDate(5, new java.sql.Date(returnDate.getTime()));
+
+                insertStmt.executeUpdate();
+            }
+
+            // Commit transaction
+            connection.commit();
+            System.out.println("Item checked out successfully: " + itemName);
+        } catch (SQLException e) {
+            System.out.println("Error processing checkout: " + e.getMessage());
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Error rolling back: " + ex.getMessage());
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                System.out.println("Error resetting auto-commit: " + e.getMessage());
             }
         }
-        System.out.println("Item not available or not in queue.");
     }
+
     
     // Check In Equipment
-    private static void checkIn(int itemID, int depotID){
-        // Simulate checking in an item
-         System.out.println("Checking in item ID: " + itemID + " by employee ID: " + depotID);
-        for (Equipment item : checkoutQueue) {
-            if (item.itemID == itemID) {
-                item.itemQuantity++; // Increment the quantity
-                item.numOut--; // Decrement the count of items checked out
-                item.itemAvailable = true; // Mark as available
-                System.out.println("Item checked in successfully: " + item.itemName);
-                return;
+    public static void checkIn(int itemID, int depotID) {
+        if (connection == null) {
+            // Assume a method getConnection() that handles the connection setup
+            connection = connectToDatabase();
+        }
+
+        try {
+            // Begin transaction
+            connection.setAutoCommit(false);
+
+            // SQL to update the equipment table
+            String updateSql = "UPDATE equipment SET itemQuantity = itemQuantity + 1, numOut = numOut - 1 WHERE itemID = ?";
+            try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
+                updateStmt.setInt(1, itemID);
+                int count = updateStmt.executeUpdate();
+                if (count == 0) {
+                    System.out.println("Item not found in the system.");
+                    connection.rollback();
+                    return;
+                }
+            }
+
+            // Optionally update the checkout table if necessary
+            String checkoutUpdateSql = "UPDATE Checkout SET ReturnDate = NOW() WHERE EquipmentID = ? AND ReturnDate IS NULL";
+            try (PreparedStatement checkoutUpdateStmt = connection.prepareStatement(checkoutUpdateSql)) {
+                checkoutUpdateStmt.setInt(1, itemID);
+                checkoutUpdateStmt.executeUpdate();
+            }
+
+            // Commit transaction
+            connection.commit();
+            System.out.println("Item checked in successfully.");
+        } catch (SQLException e) {
+            System.out.println("Error processing check-in: " + e.getMessage());
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Error rolling back: " + ex.getMessage());
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                System.out.println("Error resetting auto-commit: " + e.getMessage());
             }
         }
-        System.out.println("Item not found in the system.");
     }
-    
+
+   
+    /*
     // Add to Queue
     public static void addQueue(Equipment item){
         // Add an item to the checkout queue
@@ -120,6 +201,7 @@ public class Equipment {
             System.out.println("Item ID: " + item.itemID + ", Name: " + item.itemName + ", Available: " + item.itemAvailable);
         }
     }
+*/
     
     public static void addEquipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity, int depotID, String skillRequired) {
     connectToDatabase(); // Ensure connection is established
@@ -143,10 +225,9 @@ public class Equipment {
     }
     
     // View Inventory (display records from database)
-    public static DefaultTableModel viewInv() {
-        // Columns for the JTable
-        String[] columnNames = {"Item ID", "Item Name", "Item Quantity", "Skill Required"};
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+    public static String viewInv() {
+        StringBuilder inventoryText = new StringBuilder();
+        inventoryText.append("Item ID\tItem Name\tItem Quantity\tSkill Required\n"); // Header for the text area
 
         System.out.println("Displaying all available equipment...");
         try (Statement stmt = connection.createStatement();
@@ -158,13 +239,19 @@ public class Equipment {
                 int itemQuantity = rs.getInt("itemQuantity");
                 String skillRequired = rs.getString("skillRequired");
 
-                // Adding a row to the table model
-                model.addRow(new Object[]{itemID, itemName, itemQuantity, skillRequired});
+                // Format each row as a line in the text area
+                inventoryText.append(String.format("%d\t%s\t%d\t%s\n", itemID, itemName, itemQuantity, skillRequired));
             }
         } catch (Exception e) {
             System.out.println("Error accessing the database: " + e.getMessage());
+            return "Error loading inventory.";
         }
-        return model;
+        return inventoryText.toString();
+    }
+    
+    private static String generateTransactionID() {
+    UUID uuid = UUID.randomUUID();
+    return uuid.toString();  // Converts UUID to string for easier storage and handling
     }
 
 }
