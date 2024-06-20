@@ -286,8 +286,9 @@ public class MainUI extends javax.swing.JFrame {
             }
         });
 
-        txaViewInv.setColumns(20);
-        txaViewInv.setRows(4);
+        txaViewInv.setEditable(false);
+        txaViewInv.setColumns(4);
+        txaViewInv.setRows(25);
         scrViewInv.setViewportView(txaViewInv);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -505,8 +506,11 @@ public class MainUI extends javax.swing.JFrame {
     private void btnViewInvtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewInvtActionPerformed
         // Calling the viewInv method to get the text area for View Inventory
         String inventoryData = Equipment.viewInv();
+        if (inventoryData.startsWith("Failed") || inventoryData.startsWith("An unexpected")) {
+            JOptionPane.showMessageDialog(this, inventoryData, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
         txaViewInv.setText(inventoryData);
-    
+        }
     }//GEN-LAST:event_btnViewInvtActionPerformed
 
     private void muiOpenEquipUIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muiOpenEquipUIActionPerformed

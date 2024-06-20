@@ -526,8 +526,9 @@
               <SubComponents>
                 <Component class="javax.swing.JTextArea" name="txaViewInv">
                   <Properties>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="rows" type="int" value="4"/>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="columns" type="int" value="4"/>
+                    <Property name="rows" type="int" value="25"/>
                   </Properties>
                 </Component>
               </SubComponents>
