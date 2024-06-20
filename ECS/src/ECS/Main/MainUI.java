@@ -72,6 +72,8 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JMenu jMenu1 = new javax.swing.JMenu();
         javax.swing.JMenuItem jMenuItem2 = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        javax.swing.JMenuItem login_menu_item = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem logout_menu_item = new javax.swing.JMenuItem();
         javax.swing.JMenuItem jMenuItem1 = new javax.swing.JMenuItem();
         javax.swing.JMenu jMenu2 = new javax.swing.JMenu();
         javax.swing.JMenuItem jMenuItem3 = new javax.swing.JMenuItem();
@@ -371,6 +373,17 @@ public class MainUI extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
         jMenu1.add(jSeparator5);
 
+        login_menu_item.setText("Login");
+        login_menu_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                login_menu_itemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(login_menu_item);
+
+        logout_menu_item.setText("Logout");
+        jMenu1.add(logout_menu_item);
+
         jMenuItem1.setText("Exit");
         jMenu1.add(jMenuItem1);
 
@@ -518,6 +531,11 @@ public class MainUI extends javax.swing.JFrame {
         equipmentUI.setVisible(true);
         equipmentUI.setLocationRelativeTo(null);
     }//GEN-LAST:event_muiOpenEquipUIActionPerformed
+
+    private void login_menu_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_menu_itemActionPerformed
+        LoginUI login_ui = new LoginUI();
+        login_ui.setVisible(true);
+    }//GEN-LAST:event_login_menu_itemActionPerformed
 
     private void populate_table() {
         final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
