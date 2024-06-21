@@ -4,37 +4,19 @@
  */
 package ECS.Main;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import java.util.Date;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.JProgressBar;
 import javax.swing.JFormattedTextField;
-import javax.swing.JScrollPane;
 
 /**
  *
- * @author nicho
+ * @author nicho, Vaanitya Sangwan
  */
 public class CheckOutUI extends javax.swing.JFrame {
-    
-    // Class-level variable declarations
-    /*private JTextField jTextField1;
-    private JTextField txaEmployeeName;
-    private JTextArea jTextArea1;
-    private JProgressBar jProgressBar1;
-    private JTextArea jTextArea2;
-    
-    private JTextField txtItemID;
-    private JTextField txtItemName;
-    private JTextField txtEmpID;
-    private JFormattedTextField txtCheckoutDate;
-    private JFormattedTextField txtReturnDate;
-    */
     
     /**
      * Creates new form CheckInUI
@@ -53,73 +35,56 @@ public class CheckOutUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
-        javax.swing.JTextField jTextField1 = new javax.swing.JTextField();
-        javax.swing.JTextField txtItemID = new javax.swing.JTextField();
-        javax.swing.JTextField txtItemName = new javax.swing.JTextField();
-        javax.swing.JTextField txtEmpID = new javax.swing.JTextField();
-        javax.swing.JTextField txaEmployeeName = new javax.swing.JTextField();
-        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-        javax.swing.JTextArea jTextArea1 = new javax.swing.JTextArea();
-        javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
-        javax.swing.JProgressBar jProgressBar1 = new javax.swing.JProgressBar();
-        javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
-        javax.swing.JFormattedTextField txtCheckoutDate = new javax.swing.JFormattedTextField();
-        javax.swing.JFormattedTextField txtReturnDate = new javax.swing.JFormattedTextField();
-        javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
+        javax.swing.JLabel lblTransactionID = new javax.swing.JLabel();
+        javax.swing.JLabel lblitemID = new javax.swing.JLabel();
+        javax.swing.JLabel lblitemName = new javax.swing.JLabel();
+        javax.swing.JLabel lblempID = new javax.swing.JLabel();
+        javax.swing.JLabel lblFirstName = new javax.swing.JLabel();
+        javax.swing.JTextField txtTransactionID = new javax.swing.JTextField();
+        txtItemID = new javax.swing.JTextField();
+        txtItemName = new javax.swing.JTextField();
+        txtempID = new javax.swing.JTextField();
+        txtFirstName = new javax.swing.JTextField();
+        javax.swing.JLabel lblCheckoutDate = new javax.swing.JLabel();
+        txtCheckoutDate = new javax.swing.JFormattedTextField();
+        txtReturnDate = new javax.swing.JFormattedTextField();
+        javax.swing.JLabel lblReturnDate = new javax.swing.JLabel();
+        javax.swing.JLabel lblEquipNotes = new javax.swing.JLabel();
         javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-        javax.swing.JTextArea jTextArea2 = new javax.swing.JTextArea();
+        txaEquipNotes = new javax.swing.JTextArea();
         javax.swing.JButton btnCancel = new javax.swing.JButton();
         javax.swing.JButton btnCheckOut = new javax.swing.JButton();
+        txtLastName = new javax.swing.JTextField();
+        javax.swing.JLabel lblLastName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Equipment Check-Out Form");
         setResizable(false);
 
-        jLabel1.setText("Transaction ID");
+        lblTransactionID.setText("Transaction ID");
 
-        jLabel2.setText("Equipment ID");
+        lblitemID.setText("Equipment ID");
 
-        jLabel3.setText("Equipment Name");
+        lblitemName.setText("Equipment Name");
 
-        jLabel4.setText("Employee ID");
+        lblempID.setText("Employee ID");
 
-        jLabel5.setText("Employee Name");
+        lblFirstName.setText("First Name");
 
-        jLabel6.setText("Equipment Description:");
+        txtTransactionID.setEditable(false);
 
-        jTextField1.setEditable(false);
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jLabel7.setText("Check-Out Status:");
-
-        jProgressBar1.setForeground(new java.awt.Color(51, 255, 0));
-        jProgressBar1.setMaximum(10);
-        jProgressBar1.setFocusable(false);
-        jProgressBar1.setMaximumSize(new java.awt.Dimension(32767, 24));
-        jProgressBar1.setMinimumSize(new java.awt.Dimension(10, 24));
-        jProgressBar1.setPreferredSize(new java.awt.Dimension(146, 24));
-
-        jLabel8.setText("Check-Out Date:");
+        lblCheckoutDate.setText("Check-Out Date:");
 
         txtCheckoutDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
-        jLabel9.setText("Due In Date:");
+        lblReturnDate.setText("Due In Date:");
 
-        jLabel10.setText("Notes:");
+        lblEquipNotes.setText("Equipment Notes:");
+        lblEquipNotes.setToolTipText("");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        txaEquipNotes.setColumns(20);
+        txaEquipNotes.setRows(5);
+        jScrollPane2.setViewportView(txaEquipNotes);
 
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -135,60 +100,55 @@ public class CheckOutUI extends javax.swing.JFrame {
             }
         });
 
+        lblLastName.setText("Last Name");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtItemID)
-                                            .addComponent(txtItemName)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel7))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtEmpID)
-                                            .addComponent(txaEmployeeName)
-                                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jScrollPane1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtCheckoutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblitemName)
+                            .addComponent(lblCheckoutDate)
+                            .addComponent(lblEquipNotes)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTransactionID, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblitemID, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtItemID)
+                            .addComponent(txtItemName)
+                            .addComponent(txtTransactionID, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblFirstName)
+                            .addComponent(lblempID)
+                            .addComponent(lblLastName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtempID, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtCheckoutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblReturnDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,42 +157,40 @@ public class CheckOutUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTransactionID)
+                            .addComponent(txtTransactionID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
+                            .addComponent(lblitemID)
                             .addComponent(txtItemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(txtempID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblempID))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txaEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))))
+                            .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFirstName))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblitemName)
+                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLastName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(txtCheckoutDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCheckoutDate)
+                            .addComponent(txtCheckoutDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEquipNotes))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblReturnDate))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,32 +211,29 @@ public class CheckOutUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
-       /* try {
-            int itemID = Integer.parseInt(txtItemID.getText());  
-            int empID = Integer.parseInt(txtEmpID.getText());  
-            String itemName = txtItemName.getText();  // 
-            
-            int itemPrice = Integer.parseInt(txtItemPrice.getText());
-            boolean isConsumable = chkIsConsumable.isSelected();
-            int itemQuantity = Integer.parseInt(txtItemQuantity.getText());
-            int depotID = Integer.parseInt(txtDepotID.getText());  // txtDepotID for depot ID
-            String skillRequired = txtSkillRequired.getText();
-            
+        try {
+        int itemID = Integer.parseInt(txtItemID.getText());
+        int empID = Integer.parseInt(txtempID.getText());
+        String itemName = txtItemName.getText();
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        String equipNotes = txaEquipNotes.getText();
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date checkoutDate = sdf.parse(txtCheckoutDate.getText());
-            Date returnDate = sdf.parse(txtReturnDate.getText());
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
+        Date checkoutDate = sdf.parse(txtCheckoutDate.getText());
+        Date returnDate = sdf.parse(txtReturnDate.getText());
 
-            Equipment.checkOut(itemID, empID, itemName, itemPrice, isConsumable, itemQuantity, depotID, skillRequired, checkoutDate, returnDate);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Please check your numerical inputs.");
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Please enter valid dates in the format yyyy-MM-dd.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error during checkout: " + e.getMessage());
-        }
-        }
-        */
+        // Call the checkOut method in the Equipment class
+        Equipment.checkOut(itemID, empID, itemName, firstName, lastName, equipNotes, checkoutDate, returnDate);
+        JOptionPane.showMessageDialog(null, "Item checked out successfully!");
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Please check your numerical inputs.");
+    } catch (ParseException e) {
+        JOptionPane.showMessageDialog(null, "Please enter valid dates in the format yyyy-MM-dd.");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error during checkout: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     /**
@@ -317,6 +272,18 @@ public class CheckOutUI extends javax.swing.JFrame {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    javax.swing.JTextArea txaEquipNotes;
+    javax.swing.JFormattedTextField txtCheckoutDate;
+    javax.swing.JTextField txtFirstName;
+    javax.swing.JTextField txtItemID;
+    javax.swing.JTextField txtItemName;
+    javax.swing.JTextField txtLastName;
+    javax.swing.JFormattedTextField txtReturnDate;
+    javax.swing.JTextField txtempID;
     // End of variables declaration//GEN-END:variables
+    
+
 }
+
