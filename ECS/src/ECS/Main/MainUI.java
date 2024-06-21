@@ -82,7 +82,7 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JMenuItem logout_menu_item = new javax.swing.JMenuItem();
         javax.swing.JMenuItem jMenuItem1 = new javax.swing.JMenuItem();
         javax.swing.JMenu jMenu2 = new javax.swing.JMenu();
-        javax.swing.JMenuItem jMenuItem3 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuCheckOut = new javax.swing.JMenuItem();
         javax.swing.JMenuItem mnuCheckIn = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator6 = new javax.swing.JPopupMenu.Separator();
         javax.swing.JMenuItem mnuReportLost = new javax.swing.JMenuItem();
@@ -434,13 +434,13 @@ public class MainUI extends javax.swing.JFrame {
 
         jMenu2.setText("Check/Report");
 
-        jMenuItem3.setText("Check-Out");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        mnuCheckOut.setText("Check-Out");
+        mnuCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                mnuCheckOutActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(mnuCheckOut);
 
         mnuCheckIn.setText("Check-In");
         mnuCheckIn.addActionListener(new java.awt.event.ActionListener() {
@@ -651,11 +651,11 @@ public class MainUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_logout_menu_itemActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void mnuCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCheckOutActionPerformed
         CheckOutUI checkOutFrame = new CheckOutUI();  // Create a new instance of CheckOutUI
         checkOutFrame.setVisible(true);  // Make the CheckOutUI visible
         checkOutFrame.setLocationRelativeTo(null);  // Center the CheckOutUI on the screen
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_mnuCheckOutActionPerformed
 
     private void mnuCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCheckInActionPerformed
         CheckInUI checkInFrame = new CheckInUI();
