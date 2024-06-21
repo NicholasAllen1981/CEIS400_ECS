@@ -39,9 +39,9 @@ public class DepotEmp extends Employee {
     private int empID;
     private String empName;
     // --- Database Connection Variables ---
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/ceis400_group_project";
-    private static final String DB_USER = "groupc";
-    private static final String DB_PASSWORD = "0I209{^X`XHF";
+    final String DB_URL = Settings.getJdbcUrl();
+    final String DB_USER = Settings.getDbUsername();
+    final String DB_PASSWORD = Settings.getDbPassword();
     private static Connection connection = null;
 
     // Constructor

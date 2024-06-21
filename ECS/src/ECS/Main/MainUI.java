@@ -21,6 +21,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainUI extends javax.swing.JFrame {
 
+        final String DB_URL = Settings.getJdbcUrl();
+        final String DB_USER = Settings.getDbUsername();
+        final String DB_PASSWORD = Settings.getDbPassword();
+    
     /**
      * Creates new form Main
      */
@@ -43,6 +47,7 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JMenuItem jMenuItem7 = new javax.swing.JMenuItem();
         javax.swing.JFrame jFrame1 = new javax.swing.JFrame();
         javax.swing.ButtonGroup btnGrpSearch = new javax.swing.ButtonGroup();
+        javax.swing.JSeparator jSeparator2 = new javax.swing.JSeparator();
         javax.swing.JPanel jPanel5 = new javax.swing.JPanel();
         javax.swing.JLabel lblInUse4 = new javax.swing.JLabel();
         javax.swing.JSeparator jSeparator8 = new javax.swing.JSeparator();
@@ -67,10 +72,8 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JSeparator jSeparator1 = new javax.swing.JSeparator();
         scrCheckOutList1 = new javax.swing.JScrollPane();
         equipment_table = new javax.swing.JTable();
-        javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
-        javax.swing.JButton btnViewInvt = new javax.swing.JButton();
-        javax.swing.JScrollPane scrViewInv = new javax.swing.JScrollPane();
-        javax.swing.JTextArea txaViewInv = new javax.swing.JTextArea();
+        javax.swing.JToolBar jToolBar1 = new javax.swing.JToolBar();
+        javax.swing.JLabel lblLoggedInUser = new javax.swing.JLabel();
         javax.swing.JMenuBar jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu jMenu1 = new javax.swing.JMenu();
         javax.swing.JMenuItem jMenuItem2 = new javax.swing.JMenuItem();
@@ -80,16 +83,31 @@ public class MainUI extends javax.swing.JFrame {
         javax.swing.JMenuItem jMenuItem1 = new javax.swing.JMenuItem();
         javax.swing.JMenu jMenu2 = new javax.swing.JMenu();
         javax.swing.JMenuItem jMenuItem3 = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem jMenuItem4 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuCheckIn = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator6 = new javax.swing.JPopupMenu.Separator();
-        javax.swing.JMenuItem jMenuItem5 = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem jMenuItem6 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuReportLost = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuReportDamaged = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator7 = new javax.swing.JPopupMenu.Separator();
-        javax.swing.JMenuItem jMenuItem8 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuReportFound = new javax.swing.JMenuItem();
         javax.swing.JMenu jMenu3 = new javax.swing.JMenu();
-        javax.swing.JMenuItem mnuEmpList = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuViewEmp = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        javax.swing.JMenuItem mnuAddEmp = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuModifyEmp = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        javax.swing.JMenuItem jMenuItem6 = new javax.swing.JMenuItem();
         javax.swing.JMenu mnuAddEquip = new javax.swing.JMenu();
+        javax.swing.JMenuItem mnuViewInv = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator10 = new javax.swing.JPopupMenu.Separator();
         javax.swing.JMenuItem muiOpenEquipUI = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuModifyEquipment = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuRemoveEquipment = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator11 = new javax.swing.JPopupMenu.Separator();
+        javax.swing.JMenuItem mnuTransferEquipment = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem mnuPurchaseEquipment = new javax.swing.JMenuItem();
+        javax.swing.JMenu jMenu4 = new javax.swing.JMenu();
+        javax.swing.JMenuItem jMenuItem4 = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem jMenuItem5 = new javax.swing.JMenuItem();
 
         jMenuItem7.setText("jMenuItem7");
 
@@ -126,6 +144,11 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         btnReportLost.setText("Report Lost Item");
+        btnReportLost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportLostActionPerformed(evt);
+            }
+        });
 
         btnReportFound.setText("Report Item Found");
         btnReportFound.addActionListener(new java.awt.event.ActionListener() {
@@ -147,35 +170,39 @@ public class MainUI extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnBeginCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addComponent(btnBeginCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBeginCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addComponent(btnBeginCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReportLost, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(btnReportLost, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReportFound, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                .addComponent(btnReportFound, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReportDamaged, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                .addComponent(btnReportDamaged, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBeginCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBeginCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReportLost, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnReportDamaged, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReportFound, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReportDamaged, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReportLost, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBeginCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBeginCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         lblInUse5.setText("Managment");
 
         jPanel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        jPanel7.setEnabled(false);
 
         btnModifyEmp_MGMT.setText("Modify Employee");
+        btnModifyEmp_MGMT.setMaximumSize(new java.awt.Dimension(146, 23));
+        btnModifyEmp_MGMT.setMinimumSize(new java.awt.Dimension(146, 23));
+        btnModifyEmp_MGMT.setPreferredSize(new java.awt.Dimension(146, 23));
         btnModifyEmp_MGMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifyEmp_MGMTActionPerformed(evt);
@@ -183,6 +210,9 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         btnAddEmp_MGMT.setText("Add Employee");
+        btnAddEmp_MGMT.setMaximumSize(new java.awt.Dimension(146, 23));
+        btnAddEmp_MGMT.setMinimumSize(new java.awt.Dimension(146, 23));
+        btnAddEmp_MGMT.setPreferredSize(new java.awt.Dimension(146, 23));
         btnAddEmp_MGMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddEmp_MGMTActionPerformed(evt);
@@ -190,10 +220,19 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         btnOverrides_MGMT.setText("Overrides");
+        btnOverrides_MGMT.setMaximumSize(new java.awt.Dimension(146, 23));
+        btnOverrides_MGMT.setMinimumSize(new java.awt.Dimension(146, 23));
+        btnOverrides_MGMT.setPreferredSize(new java.awt.Dimension(146, 23));
 
         btnAuthorization_MGMT.setText("Authorization");
+        btnAuthorization_MGMT.setMaximumSize(new java.awt.Dimension(146, 23));
+        btnAuthorization_MGMT.setMinimumSize(new java.awt.Dimension(146, 23));
+        btnAuthorization_MGMT.setPreferredSize(new java.awt.Dimension(146, 23));
 
         btnVerifyMGMT.setText("Verify MGMT");
+        btnVerifyMGMT.setMaximumSize(new java.awt.Dimension(146, 23));
+        btnVerifyMGMT.setMinimumSize(new java.awt.Dimension(146, 23));
+        btnVerifyMGMT.setPreferredSize(new java.awt.Dimension(146, 23));
         btnVerifyMGMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerifyMGMTActionPerformed(evt);
@@ -215,7 +254,7 @@ public class MainUI extends javax.swing.JFrame {
                 .addComponent(btnOverrides_MGMT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAuthorization_MGMT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,7 +338,7 @@ public class MainUI extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblInUse)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -307,45 +346,10 @@ public class MainUI extends javax.swing.JFrame {
                 .addComponent(scrCheckOutList, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrCheckOutList1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         scrCheckOutList.getAccessibleContext().setAccessibleName("checkoutQueue");
-
-        btnViewInvt.setText("View Inventory");
-        btnViewInvt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewInvtActionPerformed(evt);
-            }
-        });
-
-        txaViewInv.setEditable(false);
-        txaViewInv.setColumns(4);
-        txaViewInv.setRows(25);
-        scrViewInv.setViewportView(txaViewInv);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrViewInv)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnViewInvt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnViewInvt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrViewInv, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -368,8 +372,7 @@ public class MainUI extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(6, 6, 6))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(6, 6, 6))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,11 +390,15 @@ public class MainUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jToolBar1.setRollover(true);
+
+        lblLoggedInUser.setText("Current User: ");
+        lblLoggedInUser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToolBar1.add(lblLoggedInUser);
 
         jMenu1.setText("File");
 
@@ -413,6 +420,11 @@ public class MainUI extends javax.swing.JFrame {
         jMenu1.add(login_menu_item);
 
         logout_menu_item.setText("Logout");
+        logout_menu_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logout_menu_itemActionPerformed(evt);
+            }
+        });
         jMenu1.add(logout_menu_item);
 
         jMenuItem1.setText("Exit");
@@ -423,44 +435,79 @@ public class MainUI extends javax.swing.JFrame {
         jMenu2.setText("Check/Report");
 
         jMenuItem3.setText("Check-Out");
-        jMenu2.add(jMenuItem3);
-
-        jMenuItem4.setText("Check-In");
-        jMenu2.add(jMenuItem4);
-        jMenu2.add(jSeparator6);
-
-        jMenuItem5.setText("Report Lost");
-        jMenu2.add(jMenuItem5);
-
-        jMenuItem6.setText("Report Damaged");
-        jMenu2.add(jMenuItem6);
-        jMenu2.add(jSeparator7);
-
-        jMenuItem8.setText("Report Found");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem8);
+        jMenu2.add(jMenuItem3);
+
+        mnuCheckIn.setText("Check-In");
+        mnuCheckIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCheckInActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuCheckIn);
+        jMenu2.add(jSeparator6);
+
+        mnuReportLost.setText("Report Lost");
+        mnuReportLost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReportLostActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuReportLost);
+
+        mnuReportDamaged.setText("Report Damaged");
+        mnuReportDamaged.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReportDamagedActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuReportDamaged);
+        jMenu2.add(jSeparator7);
+
+        mnuReportFound.setText("Report Found");
+        mnuReportFound.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReportFoundActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuReportFound);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Help");
+        jMenu3.setText("Employee");
 
-        mnuEmpList.setText("jMenuItem9");
-        mnuEmpList.addActionListener(new java.awt.event.ActionListener() {
+        mnuViewEmp.setText("View All Employees");
+        mnuViewEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuEmpListActionPerformed(evt);
+                mnuViewEmpActionPerformed(evt);
             }
         });
-        jMenu3.add(mnuEmpList);
+        jMenu3.add(mnuViewEmp);
+        jMenu3.add(jSeparator3);
+
+        mnuAddEmp.setText("Add Employee");
+        jMenu3.add(mnuAddEmp);
+
+        mnuModifyEmp.setText("Modify Employee");
+        jMenu3.add(mnuModifyEmp);
+        jMenu3.add(jSeparator4);
+
+        jMenuItem6.setText("Remove Employee");
+        jMenu3.add(jMenuItem6);
 
         jMenuBar1.add(jMenu3);
 
-        mnuAddEquip.setText("Add Equipment");
+        mnuAddEquip.setText("Equipment");
 
-        muiOpenEquipUI.setText("Open");
+        mnuViewInv.setText("View Inventory");
+        mnuAddEquip.add(mnuViewInv);
+        mnuAddEquip.add(jSeparator10);
+
+        muiOpenEquipUI.setText("Add Equipment");
         muiOpenEquipUI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 muiOpenEquipUIActionPerformed(evt);
@@ -468,7 +515,45 @@ public class MainUI extends javax.swing.JFrame {
         });
         mnuAddEquip.add(muiOpenEquipUI);
 
+        mnuModifyEquipment.setText("Modify Equipment");
+        mnuAddEquip.add(mnuModifyEquipment);
+
+        mnuRemoveEquipment.setText("Remove Equipment");
+        mnuRemoveEquipment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuRemoveEquipmentActionPerformed(evt);
+            }
+        });
+        mnuAddEquip.add(mnuRemoveEquipment);
+        mnuAddEquip.add(jSeparator11);
+
+        mnuTransferEquipment.setText("Transfer Equipment");
+        mnuAddEquip.add(mnuTransferEquipment);
+
+        mnuPurchaseEquipment.setText("Purchase Equipment");
+        mnuAddEquip.add(mnuPurchaseEquipment);
+
         jMenuBar1.add(mnuAddEquip);
+
+        jMenu4.setText("Help");
+
+        jMenuItem4.setText("About");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
+        jMenuItem5.setText("Settings");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -477,13 +562,15 @@ public class MainUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -493,9 +580,11 @@ public class MainUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    private void mnuReportFoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReportFoundActionPerformed
+        ReportFoundUI newFrame = new ReportFoundUI();
+        newFrame.setVisible(true);
+        newFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_mnuReportFoundActionPerformed
 
     private void btnBeginCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeginCheckOutActionPerformed
         CheckOutUI checkOutFrame = new CheckOutUI();  // Create a new instance of CheckOutUI
@@ -541,21 +630,11 @@ public class MainUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReportFoundActionPerformed
 
-    private void mnuEmpListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEmpListActionPerformed
+    private void mnuViewEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewEmpActionPerformed
         ViewEmployeeUI newFrame = new ViewEmployeeUI();
         newFrame.setVisible(true);
         newFrame.setLocationRelativeTo(null);
-    }//GEN-LAST:event_mnuEmpListActionPerformed
-
-    private void btnViewInvtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewInvtActionPerformed
-        // Calling the viewInv method to get the text area for View Inventory
-        String inventoryData = Equipment.viewInv();
-        if (inventoryData.startsWith("Failed") || inventoryData.startsWith("An unexpected")) {
-            JOptionPane.showMessageDialog(this, inventoryData, "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-        txaViewInv.setText(inventoryData);
-        }
-    }//GEN-LAST:event_btnViewInvtActionPerformed
+    }//GEN-LAST:event_mnuViewEmpActionPerformed
 
     private void muiOpenEquipUIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muiOpenEquipUIActionPerformed
         AddEquipmentUI equipmentUI = new AddEquipmentUI();
@@ -567,12 +646,57 @@ public class MainUI extends javax.swing.JFrame {
         LoginUI login_ui = new LoginUI();
         login_ui.setVisible(true);
     }//GEN-LAST:event_login_menu_itemActionPerformed
+
+    private void logout_menu_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logout_menu_itemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logout_menu_itemActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        CheckOutUI checkOutFrame = new CheckOutUI();  // Create a new instance of CheckOutUI
+        checkOutFrame.setVisible(true);  // Make the CheckOutUI visible
+        checkOutFrame.setLocationRelativeTo(null);  // Center the CheckOutUI on the screen
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void mnuCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCheckInActionPerformed
+        CheckInUI checkInFrame = new CheckInUI();
+        checkInFrame.setVisible(true);
+        checkInFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_mnuCheckInActionPerformed
+
+    private void btnReportLostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportLostActionPerformed
+        ReportLostUI reportLostFrame = new ReportLostUI();
+        reportLostFrame.setVisible(true);
+        reportLostFrame.setLocationRelativeTo(null);    }//GEN-LAST:event_btnReportLostActionPerformed
+
+    private void mnuReportLostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReportLostActionPerformed
+        ReportLostUI reportLostFrame = new ReportLostUI();
+        reportLostFrame.setVisible(true);
+        reportLostFrame.setLocationRelativeTo(null);    }//GEN-LAST:event_mnuReportLostActionPerformed
+
+    private void mnuReportDamagedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReportDamagedActionPerformed
+        ReportDamagedUI newFrame = new ReportDamagedUI();
+        newFrame.setVisible(true);
+        newFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_mnuReportDamagedActionPerformed
+
+    private void mnuRemoveEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRemoveEquipmentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuRemoveEquipmentActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        AboutUI aboutFrame = new AboutUI();
+        aboutFrame.setVisible(true);
+        aboutFrame.setLocationRelativeTo(null);    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        SettingsUI settingsFrame = new SettingsUI();
+        settingsFrame.setVisible(true);
+        settingsFrame.setLocationRelativeTo(null);    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    
 private void populate_equipment_table() {
         System.out.println("Connecting to Database to populate Inventory...");
 
-        final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
-        final String DB_USER = "user";
-        final String DB_PASSWORD = "devry123";
+
         
 
         // Hashmap for equipment descriptions, NEEDS TO BE UPDATED
@@ -643,9 +767,7 @@ private void populate_equipment_table() {
         }
     }
     private void populate_checkedout_table() {
-        final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
-        final String DB_USER = "user";
-        final String DB_PASSWORD = "devry123";
+
 
         // Hashmap for equipment descriptions, NEEDS TO BE UPDATED
         // Fill this.
@@ -711,7 +833,7 @@ private void populate_equipment_table() {
             }
         }
     }
-
+    
     /**
      * @param args the command line arguments
      */
@@ -749,7 +871,7 @@ private void populate_equipment_table() {
     }
     
     private javax.swing.JTextArea txaViewInv;
-
+    public String loggedInUser = "";
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JTable checkout_table;
     javax.swing.JTable equipment_table;

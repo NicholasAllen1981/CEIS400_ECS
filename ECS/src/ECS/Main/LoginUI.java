@@ -18,6 +18,9 @@ public class LoginUI extends javax.swing.JFrame {
     /**
      * Creates new form LoginUI
      */
+    
+    public String empName;
+            
     public LoginUI() {
         initComponents();
         get_users();
@@ -123,8 +126,8 @@ public class LoginUI extends javax.swing.JFrame {
 
     private static void get_users() {
         final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
-        final String DB_USER = "groupc";
-        final String DB_PASSWORD = "oI209[^X`XHF";
+        final String DB_USER = "user";
+        final String DB_PASSWORD = "devry123";
 
         Connection connection = null;
         Statement statement = null;
@@ -135,7 +138,7 @@ public class LoginUI extends javax.swing.JFrame {
             statement = connection.createStatement();
 
             // Retrieve empID and empPassword
-            String query = "SELECT empID, empPassword FROM Employee";
+            String query = "SELECT empID, empPassword, CONCAT(FirstName + LastName) as empName FROM Employee";
 
             // Executing the query
             resultSet = statement.executeQuery(query);
@@ -144,7 +147,9 @@ public class LoginUI extends javax.swing.JFrame {
             while (resultSet.next()) {
                 int empID = resultSet.getInt("empID");
                 String empPassword = resultSet.getString("empPassword");
+                String empName = resultSet.getString("FirstName") + " " + resultSet.getString("LastName");
                 LoginUI.users.put(empID, empPassword);
+               // MainUI.lblLoggedInUser.text = "";
             }
         } catch (Exception e) {
             e.printStackTrace();

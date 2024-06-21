@@ -22,8 +22,8 @@ public class Equipment {
     
     // --- Database Connection Variables ---
     private static final String DB_URL = "jdbc:mysql://localhost:3306/ceis400_group_project";
-    private static final String DB_USER = "username";
-    private static final String DB_PASSWORD = "password";
+    private static final String DB_USER = "user";
+    private static final String DB_PASSWORD = "devry123";
     private static Connection connection = null;
     
     // --- Variables ---

@@ -31,18 +31,19 @@ public class DepotManager extends DepotEmp { // *** DepotEmp(int empID, String n
     // --- Variables ---
     private int mgmtID;
     private int authCount;
-    private static final String DB_USER = "username";
-    private static final String DB_PASSWORD = "password";
+    final String DB_URL = Settings.getJdbcUrl();
+    final String DB_USER = Settings.getDbUsername();
+    final String DB_PASSWORD = Settings.getDbPassword();
     
     // --- Functions ---
     
     // Method to verify if an employee has the skills required to use a tool
-    private static boolean verifySkills(int employeeID, String toolName) {
+    private static boolean verifySkills(int employeeID, String toolName, String dbUrl, String dbUser, String dbPassword) {
         try {
             // Establish database connection
             
             // *** Make sure to close the connection after the function is done ***
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", DB_USER, DB_PASSWORD);
+            Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             
             // Prepare SQL query
             String sql = "SELECT * FROM Employee WHERE empID = ? AND empSkills = ?";
@@ -66,10 +67,10 @@ public class DepotManager extends DepotEmp { // *** DepotEmp(int empID, String n
     }
     
     // Method to override skills for a tool
-    private static void overrideSkills(int employeeID, String toolName) {
+    private static void overrideSkills(int employeeID, String toolName, String dbUrl, String dbUser, String dbPassword) {
         try {
             // Establish database connection
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", DB_USER, DB_PASSWORD);
+            Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             
             // Prepare SQL query
             String sql = "INSERT INTO employee_skills (empID, empSkills) VALUES (?, ?)";
@@ -92,10 +93,10 @@ public class DepotManager extends DepotEmp { // *** DepotEmp(int empID, String n
     
     // Method to authorize a tool purchase
 
-         private static void authPurchase(int employeeID, int toolID) {
+         private static void authPurchase(int employeeID, int toolID, String dbUrl, String dbUser, String dbPassword) {
         try {
             // Establish database connection
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", DB_USER, DB_PASSWORD);
+            Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             
             // Check if the tool is needed for the employee
             String checkNeedSQL = "SELECT * FROM Employee WHERE empID = ? AND empSkills = ?";
@@ -129,11 +130,11 @@ public class DepotManager extends DepotEmp { // *** DepotEmp(int empID, String n
     }
     
     // Method to authorize a tool transfer
-    private static void authTransfer(int toolID, String fromFacility, String toFacility) {
+    private static void authTransfer(int toolID, String fromFacility, String toFacility, String dbUrl, String dbUser, String dbPassword) {
         // Implementation to authorize transferprivate static void authTransfer(int toolID, String fromFacility, String toFacility) {
         try {
             // Establish database connection
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", DB_USER, DB_PASSWORD);
+            Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             
             // Check if the tool is available at the 'from' facility
             
@@ -171,10 +172,10 @@ public class DepotManager extends DepotEmp { // *** DepotEmp(int empID, String n
     }
     
     // Method to return equipment for a terminated employee
-    private static void returnEmpEquip(int employeeID) {
+    private static void returnEmpEquip(int employeeID, String dbUrl, String dbUser, String dbPassword) {
         try {
             // Establish database connection
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database_name", DB_USER, DB_PASSWORD);
+            Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             
             // Prepare SQL query to retrieve equipment assigned to the terminated employee
             String retrieveEquipmentSQL = "SELECT * FROM Employee WHERE empID = ?";

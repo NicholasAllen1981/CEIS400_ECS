@@ -45,8 +45,8 @@ public class Employee {
 
     /* ----------------     Database variables  ---------------- */
     private static final String DB_URL = "jdbc:mysql://localhost:3306/CEIS400_group_project";
-    private static final String DB_USER = "groupc";
-    private static final String DB_PASSWORD = "oI209[^X`XHF";
+    private static final String DB_USER = "user";
+    private static final String DB_PASSWORD = "devry123";
     private static Connection connection = null;
     private static SecureRandom random = new SecureRandom();
 
