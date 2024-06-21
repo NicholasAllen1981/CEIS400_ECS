@@ -22,8 +22,8 @@ public class Equipment {
     
     // --- Database Connection Variables ---
     private static final String DB_URL = "jdbc:mysql://localhost:3306/ceis400_group_project";
-    private static final String DB_USER = "user";
-    private static final String DB_PASSWORD = "devry123";
+    private static final String DB_USER = "username";
+    private static final String DB_PASSWORD = "password";
     private static Connection connection = null;
     
     // --- Variables ---
@@ -74,12 +74,14 @@ public class Equipment {
     
     // --- Functions ---
     
-    
-    
+     private static String generateTransactionID() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();  // Converts UUID to string for easier storage and handling
+    }
+   
     // Check Out Equipment
-    public static void checkOut(int itemID, int empID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity, int depotID, String skillRequired, Date checkoutDate, Date returnDate) {
+    public static void checkOut(int itemID, int empID, String itemName, String firstName, String lastName, String equipNotes, Date checkoutDate, Date returnDate) {
         if (connection == null) {
-            // Assume a method getConnection() that handles the connection setup
             connection = connectToDatabase();
         }
 
@@ -87,10 +89,11 @@ public class Equipment {
             // Begin transaction
             connection.setAutoCommit(false);
 
-            // SQL to update the equipment table
-            String updateSql = "UPDATE equipment SET itemQuantity = itemQuantity - 1, numOut = numOut + 1, itemAvailable = (itemQuantity > 0) WHERE itemID = ?";
+            // Update the equipment table
+            String updateSql = "UPDATE equipment SET itemQuantity = itemQuantity - 1, numOut = numOut + 1, itemAvailable = (itemQuantity > 0), EquipNotes = ? WHERE itemID = ?";
             try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
-                updateStmt.setInt(1, itemID);
+                updateStmt.setString(1, equipNotes);
+                updateStmt.setInt(2, itemID);
                 int count = updateStmt.executeUpdate();
                 if (count == 0) {
                     System.out.println("Item not available!");
@@ -99,10 +102,9 @@ public class Equipment {
                 }
             }
 
-            // SQL to insert into checkout table
-            String insertSql = "INSERT INTO Checkout (TransactionID, empID, EquipmentID, CheckoutDate, ReturnDate) VALUES (?, ?, ?, ?, ?)";
+            // Insert into the checkout table
+            String insertSql = "INSERT INTO Checkout (TransactionID, empID, itemID, CheckoutDate, ReturnDate) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
-                // Assume a method to generate a unique transaction ID
                 String transactionID = generateTransactionID();
 
                 insertStmt.setString(1, transactionID);
@@ -112,6 +114,15 @@ public class Equipment {
                 insertStmt.setDate(5, new java.sql.Date(returnDate.getTime()));
 
                 insertStmt.executeUpdate();
+            }
+
+            // Update the employee table
+            String updateEmpSql = "UPDATE employee SET FirstName = ?, LastName = ? WHERE empID = ?";
+            try (PreparedStatement updateEmpStmt = connection.prepareStatement(updateEmpSql)) {
+                updateEmpStmt.setString(1, firstName);
+                updateEmpStmt.setString(2, lastName);
+                updateEmpStmt.setInt(3, empID);
+                updateEmpStmt.executeUpdate();
             }
 
             // Commit transaction
@@ -132,82 +143,66 @@ public class Equipment {
             }
         }
     }
-
     
     // Check In Equipment
-    public static void checkIn(int itemID, int depotID) {
-        if (connection == null) {
-            // Assume a method getConnection() that handles the connection setup
-            connection = connectToDatabase();
-        }
+    public static void checkIn(int itemID, int empID, String itemName, String firstName, String lastName, String equipNotes, Date returnDate) {
+    if (connection == null) {
+        connection = connectToDatabase();
+    }
 
-        try {
-            // Begin transaction
-            connection.setAutoCommit(false);
+    try {
+        // Begin transaction
+        connection.setAutoCommit(false);
 
-            // SQL to update the equipment table
-            String updateSql = "UPDATE equipment SET itemQuantity = itemQuantity + 1, numOut = numOut - 1 WHERE itemID = ?";
-            try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
-                updateStmt.setInt(1, itemID);
-                int count = updateStmt.executeUpdate();
-                if (count == 0) {
-                    System.out.println("Item not found in the system.");
-                    connection.rollback();
-                    return;
-                }
-            }
-
-            // Optionally update the checkout table if necessary
-            String checkoutUpdateSql = "UPDATE Checkout SET ReturnDate = NOW() WHERE EquipmentID = ? AND ReturnDate IS NULL";
-            try (PreparedStatement checkoutUpdateStmt = connection.prepareStatement(checkoutUpdateSql)) {
-                checkoutUpdateStmt.setInt(1, itemID);
-                checkoutUpdateStmt.executeUpdate();
-            }
-
-            // Commit transaction
-            connection.commit();
-            System.out.println("Item checked in successfully.");
-        } catch (SQLException e) {
-            System.out.println("Error processing check-in: " + e.getMessage());
-            try {
+        // Update the equipment table to increment the itemQuantity and decrement numOut
+        String updateEquipSql = "UPDATE equipment SET itemQuantity = itemQuantity + 1, numOut = numOut - 1, itemAvailable = (itemQuantity > 0), EquipNotes = ? WHERE itemID = ? AND numOut > 0";
+        try (PreparedStatement updateEquipStmt = connection.prepareStatement(updateEquipSql)) {
+            updateEquipStmt.setString(1, equipNotes);
+            updateEquipStmt.setInt(2, itemID);
+            int count = updateEquipStmt.executeUpdate();
+            if (count == 0) {
+                System.out.println("No items to check in or item not found!");
                 connection.rollback();
-            } catch (SQLException ex) {
-                System.out.println("Error rolling back: " + ex.getMessage());
-            }
-        } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException e) {
-                System.out.println("Error resetting auto-commit: " + e.getMessage());
+                return;
             }
         }
-    }
 
-   
-    /*
-    // Add to Queue
-    public static void addQueue(Equipment item){
-        // Add an item to the checkout queue
-        checkoutQueue.add(item);
-        System.out.println("Item added to queue: " + item.itemName);
-    }
-    
-    // Remove from Queue
-    public static void removeQueue(int itemID){
-        // Remove an item from the checkout queue
-        checkoutQueue.removeIf(item -> item.itemID == itemID);
-        System.out.println("Item removed from queue: Item ID " + itemID);
-    }
-    
-    // Display Queue from database
-    public static void displayQueue(){
-        // Display all items in the queue
-        System.out.println("Current checkout queue:");
-        for (Equipment item : checkoutQueue) {
-            System.out.println("Item ID: " + item.itemID + ", Name: " + item.itemName + ", Available: " + item.itemAvailable);
+        // Update the checkout table to set the actual return date
+        String updateCheckOutSql = "UPDATE Checkout SET ReturnDate = ? WHERE itemID = ? AND empID = ? AND ReturnDate IS NULL";
+        try (PreparedStatement updateCheckOutStmt = connection.prepareStatement(updateCheckOutSql)) {
+            updateCheckOutStmt.setDate(1, new java.sql.Date(returnDate.getTime()));
+            updateCheckOutStmt.setInt(2, itemID);
+            updateCheckOutStmt.setInt(3, empID);
+            updateCheckOutStmt.executeUpdate();
+        }
+
+        // Update the employee table with first and last names
+        String updateEmpSql = "UPDATE employee SET FirstName = ?, LastName = ? WHERE empID = ?";
+        try (PreparedStatement updateEmpStmt = connection.prepareStatement(updateEmpSql)) {
+            updateEmpStmt.setString(1, firstName);
+            updateEmpStmt.setString(2, lastName);
+            updateEmpStmt.setInt(3, empID);
+            updateEmpStmt.executeUpdate();
+        }
+
+        // Commit transaction
+        connection.commit();
+        System.out.println("Item checked in successfully: " + itemName + ", employee details updated.");
+    } catch (SQLException e) {
+        System.out.println("Error processing check-in: " + e.getMessage());
+        try {
+            connection.rollback();
+        } catch (SQLException ex) {
+            System.out.println("Error rolling back: " + ex.getMessage());
+        }
+    } finally {
+        try {
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            System.out.println("Error resetting auto-commit: " + e.getMessage());
         }
     }
-*/
+    }
     
     public static void addEquipment(int itemID, String itemName, int itemPrice, boolean isConsumable, int itemQuantity, int depotID, String skillRequired) {
     connectToDatabase(); // Ensure connection is established
@@ -272,11 +267,6 @@ public class Equipment {
             return "An unexpected error occurred. Please check the console for more information.";
         }
         return inventoryText.toString();
-    }
-    
-    private static String generateTransactionID() {
-    UUID uuid = UUID.randomUUID();
-    return uuid.toString();  // Converts UUID to string for easier storage and handling
     }
 
 }
