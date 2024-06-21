@@ -132,7 +132,8 @@ public class Employee {
     // SELECT MAX(empID) FROM Employee          -   For empID
     // SELECT MAX(DepotEmpID) FROM Employee     -   For DepotEmpID
     // SELECT MAX(maintID) FROM Employee        -   For maintID
-    private final static int generateID(String sql) {
+    private final static int generateID(String id) {
+        String sql = "SELECT MAX(" + id + ") FROM Employee";
         int nextID = 1;
         try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             if (rs.next()) {
@@ -149,9 +150,9 @@ public class Employee {
     // Add Employee (new hire)
     public static void addEmp(Employee emp) {
         emp.empPass = generatePass();
-        emp.empID = generateID("SELECT MAX(empID) FROM Employee");
-        emp.DepotEmpID = generateID("SELECT MAX(DepotEmpID) FROM Employee");
-        emp.maintID = generateID("SELECT MAX(maintID) FROM Employee");
+        emp.empID = generateID("empID");
+        emp.DepotEmpID = generateID("DepotEmpID");
+        emp.maintID = generateID("maintID");
         JFrame frame = new JFrame();
 
         String sql = "INSERT INTO Employee (empID, FirstName, LastName, empPassword, empAddress, empCity, empState, empZip, "
